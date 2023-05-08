@@ -6,6 +6,7 @@ class Ong():
         self.__adocoes = []
         self.__doadores = []
         self.__adotantes = []
+        self.__animais = []
 
     @property
     def nome_ong(self):
@@ -31,3 +32,7 @@ class Ong():
     @property
     def adotantes(self):
         return self.__adotantes
+
+    @property
+    def animais(self):
+        return self.__animais
