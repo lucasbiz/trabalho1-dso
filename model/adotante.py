@@ -14,7 +14,8 @@ class Adotante(UsuarioOng):
 
     @tipo_habilitacao.setter
     def tipo_habilitacao(self, tipo_habilitacao):
-        self.__tipo_habilitacao = tipo_habilitacao
+        if isinstance(tipo_habilitacao, str):
+            self.__tipo_habilitacao = tipo_habilitacao
 
     @property
     def possui_animais(self):
@@ -22,4 +23,5 @@ class Adotante(UsuarioOng):
 
     @possui_animais.setter
     def possui_animais(self, possui_animais):
-        self.__possui_animais = possui_animais
+        if isinstance(possui_animais, bool):
+            self.__possui_animais = possui_animais

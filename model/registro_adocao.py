@@ -14,7 +14,8 @@ class RegistroAdocao(Registro):
 
     @adotante.setter
     def adotante(self, adotante):
-        self.__adotante = adotante
+        if isinstance(adotante, object):
+            self.__adotante = adotante
 
     @property
     def assinou_termo(self):
@@ -22,4 +23,5 @@ class RegistroAdocao(Registro):
 
     @assinou_termo.setter
     def assinou_termo(self, assinou_termo):
-        self.__assinou_termo = assinou_termo
+        if isinstance(assinou_termo, bool):
+            self.__assinou_termo = assinou_termo

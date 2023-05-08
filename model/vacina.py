@@ -10,7 +10,8 @@ class Vacina():
 
     @nome_vacina.setter
     def nome_vacina(self, nome_vacina):
-        self.__nome_vacina = nome_vacina
+        if isinstance(nome_vacina, str):
+            self.__nome_vacina = nome_vacina
 
     @property
     def data_aplicacao(self):
@@ -18,4 +19,5 @@ class Vacina():
 
     @data_aplicacao.setter
     def data_aplicacao(self, data_aplicacao):
-        self.__data_aplicacao = data_aplicacao
+        if isinstance(data_aplicacao, str):
+            self.__data_aplicacao = data_aplicacao

@@ -13,4 +13,5 @@ class Cachorro(Animal):
 
     @tamanho.setter
     def tamanho(self, tamanho):
-        self.__tamanho = tamanho
+        if isinstance(tamanho, str):
+            self.__tamanho = tamanho

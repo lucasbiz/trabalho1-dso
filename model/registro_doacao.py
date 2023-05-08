@@ -14,7 +14,8 @@ class RegistroDoacao(Registro):
 
     @doador.setter
     def doador(self, doador):
-        self.__doador = doador
+        if isinstance(doador, object):
+            self.__doador = doador
 
     @property
     def motivo(self):
@@ -22,4 +23,5 @@ class RegistroDoacao(Registro):
 
     @motivo.setter
     def motivo(self, motivo):
-        self.__motivo = motivo
+        if isinstance(motivo, str):
+            self.__motivo = motivo

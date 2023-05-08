@@ -14,7 +14,8 @@ class Registro(ABC):
 
     @animal.setter
     def animal(self, animal):
-        self.__animal = animal
+        if isinstance(animal, object):
+            self.__animal = animal
 
     @property
     def data(self):
@@ -22,4 +23,5 @@ class Registro(ABC):
 
     @data.setter
     def data(self, data):
-        self.__data = data
+        if isinstance(data, str):
+            self.__data = data

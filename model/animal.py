@@ -16,7 +16,8 @@ class Animal(ABC):
 
     @numero_chip.setter
     def numero_chip(self, numero_chip):
-        self.__numero_chip = numero_chip
+        if isinstance(numero_chip, int):
+            self.__numero_chip = numero_chip
 
     @property
     def nome(self):
@@ -24,7 +25,8 @@ class Animal(ABC):
 
     @nome.setter
     def nome(self, nome):
-        self.__nome = nome
+        if isinstance(nome, str):
+            self.__nome = nome
 
     @property
     def raca(self):
@@ -32,7 +34,8 @@ class Animal(ABC):
 
     @raca.setter
     def raca(self, raca):
-        self.__raca = raca
+        if isinstance(raca, str):
+            self.__raca = raca
 
     @property
     def historico_vacinacao(self):
@@ -40,6 +43,7 @@ class Animal(ABC):
 
     @historico_vacinacao.setter
     def historico_vacinacao(self, historico_vacinacao):
-        self.__historico_vacinacao = historico_vacinacao
+        if isinstance(historico_vacinacao, list):
+            self.__historico_vacinacao = historico_vacinacao
 
 # se "vacinar" estará no controlador, precisa entrar aqui?
