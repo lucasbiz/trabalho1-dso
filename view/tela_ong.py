@@ -7,9 +7,10 @@ class TelaOng():
         print("2 - Consultar adoções")
         print("3 - Doar")
         print("4 - Adotar")
+        print("5 - Sair")
         opcao = int(input("Escolha a opcão:"))
 
-        while opcao not in [1,2,3,4]:
+        while opcao not in [1, 2, 3, 4, 5]:
             print('Número inválido, por favor escolha uma das opções abaixo:')  
             print("-------- Bem vindo a Ong! ---------")
             print("O que deseja hoje?")
@@ -17,5 +18,9 @@ class TelaOng():
             print("2 - Consultar adoções")
             print("3 - Doar")
             print("4 - Adotar")
+            print("5 - Sair")
             opcao = int(input("Escolha a opcão:"))
         return opcao
+
+    def mostra_doacao(self, animal):
+        print(animal)
