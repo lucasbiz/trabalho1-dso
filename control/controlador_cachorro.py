@@ -1,7 +1,7 @@
 
 
 
-class ControladorDog():
+class ControladorCachorro():
 
     def __init__(self):
         pass

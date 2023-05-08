@@ -1,4 +1,4 @@
-class TelaOng:
+class TelaOng():
 
     def tela_opcoes(self):
         print("-------- Bem vindo a Ong! ---------")
