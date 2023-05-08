@@ -14,3 +14,19 @@ class Ong():
     @nome_ong.setter
     def nome_ong(self, nome_ong):
         self.__nome_ong = nome_ong
+
+    @property
+    def doacoes(self):
+        return self.__doacoes
+
+    @property
+    def adocoes(self):
+        return self.__adocoes
+
+    @property
+    def doadores(self):
+        return self.__doadores
+
+    @property
+    def adotantes(self):
+        return self.__adotantes
