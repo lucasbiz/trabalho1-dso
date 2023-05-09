@@ -34,11 +34,16 @@ class ControladorDoacao():
     def mostra_tela_doacao(self):
         lista_opcoes = {1:self.doar, 2: self.cadastra_doador, 3: self.voltar}
 
-        opcao_escolhida = self.__tela_doacao.tela_opcoes_consulta()
+        opcao_escolhida = self.__tela_doacao.tela_opcoes_doacao()
         funcao_escolhida = lista_opcoes[opcao_escolhida]
         funcao_escolhida()
 
     def cadastra_doador(self):
+        # chamar o controlador_doador
+        # abrir uma tela para colocar os dados com opcao de voltar
+        # mostrar uma tela para conferir se os dados tao corretos?
+        # averiguar se na lista de doadores nao tem nenhum igual
+        # averiguar se o doador nao é também um adotante, só pode ser um ou outro
         pass
 
     def doar(self):
