@@ -1,29 +1,34 @@
 from view.tela_ong import TelaOng
-from control.controlador_gato import ControladorGato
+from control.controlador_adocao import ControladorAdocao
+from control.controlador_adotante import ControladorAdotante
 from control.controlador_cachorro import ControladorCachorro
+from control.controlador_doacao import ControladorDoacao
+from control.controlador_doador import ControladorDoador
+from control.controlador_gato import ControladorGato
 
 
 class ControladorOng():
 
     def __init__(self):
-        self.__controlador_Gato = ControladorGato(self)
+        self.__controlador_adocao = ControladorAdocao(self)
+        self.__controlador_adotante = ControladorAdotante(self)
         self.__controlador_Cachorro = ControladorCachorro(self)
-        self.__doacoes = []
-        self.__adocoes = []
+        self.__controlador_doacao = ControladorDoacao(self)
+        self.__controlador_doador = ControladorDoador(self)
+        self.__controlador_Gato = ControladorGato(self)
         self.__tela_ong = TelaOng()
 
     def inicia_sistema(self):
         self.mostra_tela()
 
     def consultar_doacoes(self):
-        for animal in self.__doacoes:
-            self.__tela_ong.mostra_doacao(animal)
+        self.__controlador_doacao.mostra_tela_consulta()
 
     def consultar_adocoes(self):
         print('DEU CERTO 2')
 
     def doar(self):
-        print('DEU CERTO 3')
+        self.__controlador_doacao.mostra_tela_doacao()
 
     def adotar(self):
         print('DEU CERTO 4')

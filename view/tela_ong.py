@@ -8,7 +8,7 @@ class TelaOng():
         print("3 - Doar")
         print("4 - Adotar")
         print("5 - Sair")
-        opcao = int(input("Escolha a opcão:"))
+        opcao = int(input("Escolha a opcão:")) # se digitar string da erro, tratar
 
         while opcao not in [1, 2, 3, 4, 5]:
             print('Número inválido, por favor escolha uma das opções abaixo:')  
@@ -22,5 +22,3 @@ class TelaOng():
             opcao = int(input("Escolha a opcão:"))
         return opcao
 
-    def mostra_doacao(self, animal):
-        print(animal)
