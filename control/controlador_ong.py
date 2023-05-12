@@ -3,7 +3,6 @@ from control.controlador_adocao import ControladorAdocao
 from control.controlador_adotante import ControladorAdotante
 from control.controlador_cachorro import ControladorCachorro
 from control.controlador_doacao import ControladorDoacao
-from control.controlador_doador import ControladorDoador
 from control.controlador_gato import ControladorGato
 
 
@@ -14,7 +13,6 @@ class ControladorOng():
         self.__controlador_adotante = ControladorAdotante(self)
         self.__controlador_Cachorro = ControladorCachorro(self)
         self.__controlador_doacao = ControladorDoacao(self)
-        self.__controlador_doador = ControladorDoador(self)
         self.__controlador_Gato = ControladorGato(self)
         self.__tela_ong = TelaOng()
 
@@ -25,19 +23,19 @@ class ControladorOng():
         self.__controlador_doacao.mostra_tela_consulta()
 
     def consultar_adocoes(self):
-        print('DEU CERTO 2')
+        pass
 
     def doar(self):
         self.__controlador_doacao.mostra_tela_doacao()
 
     def adotar(self):
-        print('DEU CERTO 4')
+        pass
     
     def listar_doadores(self):
-        self.__controlador_doador.listar_doadores()
+        self.__controlador_doacao.listar_doadores()
 
     def listar_adotantes(self):
-        print('ADOTANTES AQUI')
+        pass
 
     def finalizar(self):
         exit(0)

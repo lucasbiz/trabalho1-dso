@@ -26,7 +26,7 @@ class ControladorDoador():
             doador = Doador(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3])
             self.__doadores[opcao_escolhida[0]] = doador
             self.__tela_doador.mostra_sucesso_cadastro(opcao_escolhida[0])
+            #print(self.__doadores)
     
     def listar_doadores(self):
-        for doador in self.__doadores:
-            self.__tela_doador.mostra_doadores(doador)
+        print(self.__doadores)

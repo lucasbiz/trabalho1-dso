@@ -42,6 +42,7 @@ class ControladorDoacao():
 
     def cadastra_doador(self):
         self.__controlador_doador.cadastrar_doador()
+        #self.__controlador_doador.listar_doadores()
         # chamar o controlador_doador
         # abrir uma tela para colocar os dados com opcao de voltar
         # mostrar uma tela para conferir se os dados tao corretos?
@@ -55,3 +56,6 @@ class ControladorDoacao():
         # se quiser doar, tem que verificar se possui cadastro, se nao, jogar na tela de cadastro
         # se quiser apenas cadastrar, executar o cadastro e voltar a tela de doacao, com opcao voltar
         pass
+
+    def listar_doadores(self):
+        self.__controlador_doador.listar_doadores()
