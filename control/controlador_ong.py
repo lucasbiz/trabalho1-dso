@@ -34,7 +34,7 @@ class ControladorOng():
         print('DEU CERTO 4')
     
     def listar_doadores(self):
-        print('DOADORES AQUI')
+        self.__controlador_doador.listar_doadores()
 
     def listar_adotantes(self):
         print('ADOTANTES AQUI')

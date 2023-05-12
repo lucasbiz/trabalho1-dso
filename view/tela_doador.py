@@ -47,3 +47,6 @@ class TelaDoador:
 
     def mostra_sucesso_cadastro(self, cpf):
         print(f'Doador com CPF: {cpf} cadastrado com sucesso!')
+
+    def mostra_doadores(self, doador):
+        print(doador)
