@@ -1,4 +1,4 @@
-from usuario_ong import UsuarioOng
+from model.usuario_ong import UsuarioOng
 
 
 class Doador(UsuarioOng):

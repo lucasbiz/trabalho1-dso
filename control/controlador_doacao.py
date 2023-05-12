@@ -1,12 +1,14 @@
 from view.tela_doacao import TelaDoacao
-
+from control.controlador_doador import ControladorDoador
 
 class ControladorDoacao():
 
     def __init__(self, controlador_ong):
         self.__doacoes = ['Doacao1', 'Doacao2']
         self.__controlador_ong = controlador_ong
+        self.__controlador_doador = ControladorDoador(self)
         self.__tela_doacao = TelaDoacao()
+
 
 
     #consulta de doacoes
@@ -39,6 +41,7 @@ class ControladorDoacao():
         funcao_escolhida()
 
     def cadastra_doador(self):
+        self.__controlador_doador.cadastrar_doador()
         # chamar o controlador_doador
         # abrir uma tela para colocar os dados com opcao de voltar
         # mostrar uma tela para conferir se os dados tao corretos?
