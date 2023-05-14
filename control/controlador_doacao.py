@@ -51,11 +51,15 @@ class ControladorDoacao():
         pass
 
     def doar(self):
-
-        # opcoes - cadastrar doador e doar animal
-        # se quiser doar, tem que verificar se possui cadastro, se nao, jogar na tela de cadastro
-        # se quiser apenas cadastrar, executar o cadastro e voltar a tela de doacao, com opcao voltar
-        pass
+        cpf = self.__tela_doacao.pedir_cpf()
+        lista_doadores_cadastrados = self.__controlador_doador.pegar_doadores()
+        if cpf not in lista_doadores_cadastrados:
+            self.__tela_doacao.cpf_nao_cadastrado()
+            self.cadastra_doador()
+        elif cpf in lista_doadores_cadastrados:
+            pass
+        # pedir o cpf do doador, verificar se ja está no sistemas
+        # se nao, jogar na tela de cadastro
 
     def listar_doadores(self):
         self.__controlador_doador.listar_doadores()

@@ -13,20 +13,19 @@ class TelaDoador:
         except Exception:
             print('--------------- CPF inválido! revise seus dados e tente novamente. ---------------')
             return 1
-
         try:
             nome = input('Digite o NOME do Doador ou 1 para cancelar: ')
             if nome == '1':
                 return 1
         except Exception:
             print('--------------- NOME inválido! revise seus dados e tente novamente. ---------------')
-            return 1            
+            return 1    
 
         try:
             data_nascimento = input('Digite a DATA DE NASCIMENTO do Doador (dd/mm/aa) ou 1 para cancelar: ')
             if data_nascimento == '1':
                 return 1
-            if len(data_nascimento) < 8:
+            if len(data_nascimento) != 8:
                 raise Exception
         except Exception:
             print('--------------- DATA inválida! revise seus dados e tente novamente. ---------------')
@@ -50,3 +49,6 @@ class TelaDoador:
 
     def mostra_doadores(self, doador):
         print(doador)
+
+    def sem_doadores(self):
+        print('Não existem doadores cadastrados!')

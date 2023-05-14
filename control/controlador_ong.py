@@ -41,7 +41,7 @@ class ControladorOng():
         exit(0)
 
     def mostra_tela(self):
-        lista_opcoes = {1: self.consultar_doacoes, 2: self.consultar_adocoes, 3: self.doar, 4: self.adotar, 5: self.listar_doadores, 6: self.listar_adotantes, 7: self.finalizar}
+        lista_opcoes = {1: self.consultar_doacoes, 2: self.consultar_adocoes, 3: self.listar_doadores, 4: self.listar_adotantes, 5: self.doar, 6: self.adotar, 7: self.finalizar}
         #colocar uma opcao de finalizar sistema usando exit
         while True:
             opcao_escolhida = self.__tela_ong.tela_opcoes()
