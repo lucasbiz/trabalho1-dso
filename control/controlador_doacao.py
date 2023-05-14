@@ -54,10 +54,13 @@ class ControladorDoacao():
         cpf = self.__tela_doacao.pedir_cpf()
         lista_doadores_cadastrados = self.__controlador_doador.pegar_doadores()
         if cpf not in lista_doadores_cadastrados:
-            self.__tela_doacao.cpf_nao_cadastrado()
-            self.cadastra_doador()
+            opcao = self.__tela_doacao.cpf_nao_cadastrado()
+            if opcao == 1:
+                self.cadastra_doador()
+            elif opcao == 2:
+                self.mostra_tela_doacao()
         elif cpf in lista_doadores_cadastrados:
-            pass
+            print('Cadastro de doador encontrado, iniciando doação!')
         # pedir o cpf do doador, verificar se ja está no sistemas
         # se nao, jogar na tela de cadastro
 

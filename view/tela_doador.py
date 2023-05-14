@@ -45,7 +45,7 @@ class TelaDoador:
 
 
     def mostra_sucesso_cadastro(self, cpf):
-        print(f'Doador com CPF: {cpf} cadastrado com sucesso!')
+        print(f'Doador com CPF: {cpf} cadastrado com sucesso!, retornando a tela inicial...')
 
     def mostra_doadores(self, doador):
         print(doador)

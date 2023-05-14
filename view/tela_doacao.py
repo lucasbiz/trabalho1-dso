@@ -53,4 +53,15 @@ class TelaDoacao:
 
     def cpf_nao_cadastrado(self):
         print('Doador não cadastrado! Para realizar a doação é necessário primeiro cadastrar o doador.')
+        print('Deseja cadastrar um doador?')
+        print('1 - SIM')
+        print('2 - NÃO')
+        opcao = input('Informe o número da opção escolhida: ')
 
+        while opcao not in ['1', '2']:
+            print('Opção inválida! Informe apenas o número da opção escolhida.')
+            print('Deseja cadastrar um doador?')
+            print('1 - SIM')
+            print('2 - NÃO')
+            opcao = input('Informe o número da opcao escolhida: ')
+        return int(opcao)
