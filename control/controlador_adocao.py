@@ -80,21 +80,23 @@ class ControladorAdocao():
                 self.mostra_tela_adocao()
 
     def adotar_cachorro(self, cpf):
-        adocao = self.__controlador_cachorro.cadastra_cachorro()
-        if adocao.tamanho == 3 and self.__controlador_adotante.pegar_adotante_cpf(cpf).tipo_habitacao[0] == 'apartamento' and self.__controlador_adotante.pegar_adotante_cpf(cpf).tipo_habitacao[0] == 'pequeno':
+        cachorro = self.__controlador_cachorro.pegar_cachorro_pelo_numero()
+
+        if cachorro == 1:
+            self.mostra_tela_adocao()
+
+        elif cachorro.tamanho == 3 and self.__controlador_adotante.pegar_adotante_cpf(cpf).tipo_habitacao[0] == 'apartamento' and self.__controlador_adotante.pegar_adotante_cpf(cpf).tipo_habitacao[0] == 'pequeno':
             self.__tela_adocao.erro_tamanho_apartamento()
             self.mostra_tela_adocao()
         else:
-            if adocao == 1:
-                self.mostra_tela_adocao()
 
-            elif isinstance(adocao, object):
+            if isinstance(cachorro, object):
                 dados_finais = self.__tela_adocao.finalizar_adocao()
                 adotante = self.__controlador_adotante.pegar_adotante_cpf(cpf)
                 verificar_vacinas = self.__controlador_gato.verificar_vacinas()
 
                 if verificar_vacinas == 2:
-                    nova_adocao = RegistroAdocao(dados_finais[0], adocao, adotante, dados_finais[1])
+                    nova_adocao = RegistroAdocao(dados_finais[0], cachorro, adotante, dados_finais[1])
 
                     if nova_adocao.assinou_termo == 2:
                         self.__tela_adocao.adocao_cancelada_termo()
@@ -103,14 +105,14 @@ class ControladorAdocao():
                     elif nova_adocao.assinou_termo == 1:
                         self.__adocoes.append(nova_adocao)
                         self.__tela_adocao.sucesso_adocao('Cachorro')
-                        self.__controlador_cachorro.finalizar_adocao(adocao.numero_chip)
+                        self.__controlador_cachorro.finalizar_adocao(cachorro.numero_chip)
 
                 elif verificar_vacinas == 1:
                     falta_vacinas = self.__tela_adocao.erro_falta_vacinas()
 
                     if falta_vacinas == 1:
-                        self.__controlador_cachorro.vacinar_cachorro_completo(adocao, dados_finais[0])
-                        nova_adocao = RegistroAdocao(dados_finais[0], adocao, adotante, dados_finais[1])
+                        self.__controlador_cachorro.vacinar_cachorro_completo(cachorro, dados_finais[0])
+                        nova_adocao = RegistroAdocao(dados_finais[0], cachorro, adotante, dados_finais[1])
 
                         if nova_adocao.assinou_termo == 2:
                             self.__tela_adocao.adocao_cancelada_termo()
@@ -119,7 +121,7 @@ class ControladorAdocao():
                         elif nova_adocao.assinou_termo == 1:
                             self.__adocoes.append(nova_adocao)
                             self.__tela_adocao.sucesso_adocao('Cachorro')
-                            self.__controlador_cachorro.finalizar_adocao(adocao.numero_chip)
+                            self.__controlador_cachorro.finalizar_adocao(cachorro.numero_chip)
 
                     elif falta_vacinas == 2:
                         self.__tela_adocao.cancelar_adocao_falta_vacinas()

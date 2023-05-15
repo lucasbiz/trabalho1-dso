@@ -6,7 +6,7 @@ from control.controlador_vacina import ControladorVacina
 class ControladorCachorro():
 
     def __init__(self, controlador_doacao):
-        self.__cachorros = {321: Cachorro(321, 'Chica', 'Sem raça', [])}
+        self.__cachorros = {321: Cachorro(321, 'Chica', 'Sem raça', [], 2)}
         self.__controlador_doacao = controlador_doacao
         self.__controlador_vacina = ControladorVacina()
         self.__tela_cachorro = TelaCachorro()
@@ -55,9 +55,6 @@ class ControladorCachorro():
                 cachorro_infos = {'numero_chip': cachorro.numero_chip, 'nome': cachorro.nome, 'raca': cachorro.raca, 'tamanho': cachorro.tamanho}
                 self.__tela_cachorro.mostra_cachorros(cachorro_infos)
 
-    def vacinar_cachorro(self):
-        pass
-
     def finalizar_adocao(self, identificador):
         self.__cachorros.pop(identificador)
 
@@ -66,5 +63,16 @@ class ControladorCachorro():
         self.__controlador_vacina.vacinar('Raiva', data)
         self.__controlador_vacina.vacinar('Leptospirose', data)
         self.__controlador_vacina.vacinar('Hepatite infecciosa', data)
+    
+    def pegar_cachorro_pelo_numero(self):
+        numero_chip = self.__tela_cachorro.pegar_numero()
+        if numero_chip in self.__cachorros:
+            return self.__cachorros[numero_chip]
+        elif numero_chip == 1:
+            return 1
+        elif numero_chip not in self.__cachorros:
+            self.__tela_cachorro.cachorro_nao_encontrado()
+            return 1
+    
 
         

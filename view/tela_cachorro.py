@@ -56,3 +56,22 @@ class TelaCachorro:
 
     def mostra_cachorros(self, cachorro):
         print(cachorro)
+
+    def cachorro_nao_encontrado(self):
+        print('--------------- Aviso ----------------')
+        print('Cachorro não encontrado!')
+        print('--------------- Aviso ----------------')
+
+    def pegar_numero(self):
+        try:
+            print('----------------- Adoção ---------------')
+            numero = input('Informe o número do chip do cachorro que deseja adotar: ')
+            print('----------------- Adoção ---------------')
+
+        except Exception:
+            print('--------------- Aviso ----------------')
+            print('Número do chip inválido!')
+            print('--------------- Aviso ----------------')
+            return 1
+        
+        return numero
