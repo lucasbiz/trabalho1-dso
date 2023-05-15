@@ -1,12 +1,17 @@
 from view.tela_doacao import TelaDoacao
 from control.controlador_doador import ControladorDoador
+from control.controlador_cachorro import ControladorCachorro
+from control.controlador_gato import ControladorGato
+from model.registro_doacao import RegistroDoacao
 
 class ControladorDoacao():
 
     def __init__(self, controlador_ong):
-        self.__doacoes = ['Doacao1', 'Doacao2']
+        self.__doacoes = []
         self.__controlador_ong = controlador_ong
         self.__controlador_doador = ControladorDoador(self)
+        self.__controlador_cachorro = ControladorCachorro(self)
+        self.__controlador_gato = ControladorGato(self)
         self.__tela_doacao = TelaDoacao()
 
 
@@ -42,26 +47,57 @@ class ControladorDoacao():
 
     def cadastra_doador(self):
         self.__controlador_doador.cadastrar_doador()
-        #self.__controlador_doador.listar_doadores()
-        # chamar o controlador_doador
-        # abrir uma tela para colocar os dados com opcao de voltar
-        # mostrar uma tela para conferir se os dados tao corretos?
-        # averiguar se na lista de doadores nao tem nenhum igual
+
         # averiguar se o doador nao é também um adotante, só pode ser um ou outro
 
     def doar(self):
         cpf = self.__tela_doacao.pedir_cpf()
-        lista_doadores_cadastrados = self.__controlador_doador.pegar_doadores()
-        if cpf not in lista_doadores_cadastrados:
-            opcao = self.__tela_doacao.cpf_nao_cadastrado()
-            if opcao == 1:
-                self.cadastra_doador()
-            elif opcao == 2:
-                self.mostra_tela_doacao()
-        elif cpf in lista_doadores_cadastrados:
+        if cpf == 1:
+            self.mostra_tela_doacao()
+
+        else:
+            lista_doadores_cadastrados = self.__controlador_doador.pegar_doadores()
+            if cpf not in lista_doadores_cadastrados:
+                opcao = self.__tela_doacao.cpf_nao_cadastrado()
+                if opcao == 1:
+                    self.cadastra_doador()
+                    self.doar()
+                elif opcao == 2:
+                    self.mostra_tela_doacao()
+    
+        if cpf in lista_doadores_cadastrados:
             print('Cadastro de doador encontrado, iniciando doação!')
-        # pedir o cpf do doador, verificar se ja está no sistemas
-        # se nao, jogar na tela de cadastro
+            opcao_escolhida = self.__tela_doacao.gato_ou_cachorro()
+            if opcao_escolhida == 1:
+                self.doar_gato(cpf)
+            elif opcao_escolhida == 2:
+                self.doar_cachorro(cpf)
+            elif opcao_escolhida == 3:
+                self.mostra_tela_doacao()
+
+    def doar_cachorro(self, cpf):
+        doacao = self.__controlador_cachorro.cadastra_cachorro()
+        if doacao == 1:
+            self.mostra_tela_doacao()
+        elif isinstance(doacao, object):
+            dados_finais = self.__tela_doacao.finalizar_doacao()
+            doador = self.__controlador_doador.pegar_doador_cpf(cpf)
+            nova_doacao = RegistroDoacao(dados_finais[0], doacao, doador, dados_finais[1])
+            self.__doacoes.append(nova_doacao)
+            self.__tela_doacao.sucesso_doacao('Cachorro')
+        
+
+    def doar_gato(self, cpf):
+        doacao = self.__controlador_gato.cadastra_gato()
+        if doacao == 1:
+            self.mostra_tela_doacao()
+        elif isinstance(doacao, object):
+            dados_finais = self.__tela_doacao.finalizar_doacao()
+            doador = self.__controlador_doador.pegar_doador_cpf(cpf)
+            nova_doacao = RegistroDoacao(dados_finais[0], doacao, doador, dados_finais[1])
+            self.__doacoes.append(nova_doacao)
+            self.__tela_doacao.sucesso_doacao_gato()
+
 
     def listar_doadores(self):
         self.__controlador_doador.listar_doadores()

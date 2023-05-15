@@ -21,11 +21,14 @@ class ControladorDoador():
             self.cancelar_cadastro()
 
         elif isinstance(opcao_escolhida, list):
-            doador = Doador(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3])
-            self.__doadores[opcao_escolhida[0]] = doador
-            self.__tela_doador.mostra_sucesso_cadastro(opcao_escolhida[0])
-            #print(self.__doadores)
-    
+            if opcao_escolhida[0] not in self.__doadores:
+                doador = Doador(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3])
+                self.__doadores[opcao_escolhida[0]] = doador
+                self.__tela_doador.mostra_sucesso_cadastro(opcao_escolhida[0])
+            elif opcao_escolhida[0] in self.__doadores:
+                self.__tela_doador.cpf_ja_cadastrado(opcao_escolhida[0])
+                self.__controlador_doacao.mostra_tela_doacao()
+
     def listar_doadores(self):
         if self.__doadores == {}:
             self.__tela_doador.sem_doadores()
@@ -41,3 +44,9 @@ class ControladorDoador():
             chaves_doadores.append(doador_chave)
         print(chaves_doadores)
         return chaves_doadores
+    
+    def pegar_doador_cpf(self, cpf):
+        if cpf in self.__doadores:
+            return self.__doadores[cpf]
+        else:
+            self.__tela_doador.cpf_nao_encontrado()

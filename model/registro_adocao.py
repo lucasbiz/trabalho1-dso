@@ -1,4 +1,4 @@
-from registro import Registro
+from model.registro import Registro
 
 
 class RegistroAdocao(Registro):

@@ -1,19 +1,13 @@
 from view.tela_ong import TelaOng
 from control.controlador_adocao import ControladorAdocao
-from control.controlador_adotante import ControladorAdotante
-from control.controlador_cachorro import ControladorCachorro
 from control.controlador_doacao import ControladorDoacao
-from control.controlador_gato import ControladorGato
 
 
 class ControladorOng():
 
     def __init__(self):
         self.__controlador_adocao = ControladorAdocao(self)
-        self.__controlador_adotante = ControladorAdotante(self)
-        self.__controlador_Cachorro = ControladorCachorro(self)
         self.__controlador_doacao = ControladorDoacao(self)
-        self.__controlador_Gato = ControladorGato(self)
         self.__tela_ong = TelaOng()
 
     def inicia_sistema(self):
@@ -29,13 +23,17 @@ class ControladorOng():
         self.__controlador_doacao.mostra_tela_doacao()
 
     def adotar(self):
-        pass
+        self.__controlador_adocao.mostra_tela_adocao()
     
     def listar_doadores(self):
         self.__controlador_doacao.listar_doadores()
 
     def listar_adotantes(self):
+        self.__controlador_adocao.listar_adotantes()
+
+    def listar_animais(self):
         pass
+        #deixar um gato e um cachorro pré cadastrados para ajudar na apresentação
 
     def finalizar(self):
         exit(0)

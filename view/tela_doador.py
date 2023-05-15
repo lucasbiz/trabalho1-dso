@@ -45,10 +45,20 @@ class TelaDoador:
 
 
     def mostra_sucesso_cadastro(self, cpf):
-        print(f'Doador com CPF: {cpf} cadastrado com sucesso!, retornando a tela inicial...')
+        print(f'Doador com CPF: {cpf} cadastrado com sucesso!')
 
     def mostra_doadores(self, doador):
         print(doador)
 
     def sem_doadores(self):
         print('Não existem doadores cadastrados!')
+
+    def cpf_ja_cadastrado(self, cpf):
+        print('--------------- Aviso ---------------')
+        print(f'CPF {cpf} já cadastrado como doador!')
+        print('--------------- Aviso ---------------')
+    
+    def cpf_nao_encontrado(self, cpf):
+        print('--------------- Aviso ---------------')
+        print(f'CPF {cpf} não encontrado!')
+        print('--------------- Aviso ---------------')
