@@ -48,7 +48,6 @@ class ControladorDoacao():
         # mostrar uma tela para conferir se os dados tao corretos?
         # averiguar se na lista de doadores nao tem nenhum igual
         # averiguar se o doador nao é também um adotante, só pode ser um ou outro
-        pass
 
     def doar(self):
         cpf = self.__tela_doacao.pedir_cpf()
