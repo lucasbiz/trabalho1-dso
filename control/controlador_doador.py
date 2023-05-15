@@ -42,7 +42,6 @@ class ControladorDoador():
         chaves_doadores = []
         for doador_chave in self.__doadores:
             chaves_doadores.append(doador_chave)
-        print(chaves_doadores)
         return chaves_doadores
     
     def pegar_doador_cpf(self, cpf):

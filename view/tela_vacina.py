@@ -11,9 +11,6 @@ class TelaVacina:
         opcao = input('Informe a vacina: ')
         print('---------------- Vacinação ---------------')
 
-        if opcao == 4:
-            return 1
-
         while opcao not in ['1','2','3','4']:
             print('---------------- Vacinação ---------------')
             print('Opção inválida! tente novamente')
@@ -25,7 +22,7 @@ class TelaVacina:
             opcao = input('Informe a vacina: ')
             print('---------------- Vacinação ---------------')
 
-        if opcao == 4:
+        if int(opcao) == 4:
             return 1
 
         print('---------------- Vacinação ---------------')
@@ -37,11 +34,11 @@ class TelaVacina:
             data_vacina = input('Data de aplicação inválida! Informe novamente (dd/mm/aa): ')
             print('---------------- Vacinação ---------------')
 
-        if opcao == 1:
+        if int(opcao) == 1:
             opcao = 'Raiva'
-        elif opcao == 2:
+        elif int(opcao) == 2:
             opcao = 'Leptospirose'
-        elif opcao == 3:
+        elif int(opcao) == 3:
             opcao = 'Hepatite Infecciosa'
 
         vacina.append(opcao)

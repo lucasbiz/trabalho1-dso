@@ -92,6 +92,6 @@ class TelaAdotante:
         print(f'CPF {cpf} não encontrado!')
         print('--------------- Aviso ---------------')
     
-    def cpf_ja_cadastrado_doador(cpf):
+    def cpf_ja_cadastrado_doador(self, cpf):
         print(f'CPF {cpf} já cadastrado como doador!')
         print('--------------- Aviso ---------------')

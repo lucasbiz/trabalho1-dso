@@ -6,7 +6,7 @@ from control.controlador_vacina import ControladorVacina
 class ControladorCachorro():
 
     def __init__(self, controlador_doacao):
-        self.__cachorros = {321: Cachorro(321, 'Chica', 'Sem raça', [], 2)}
+        self.__cachorros = {321: Cachorro(321, 'Chica', 'Sem raça', [], 2), 456: Cachorro(456, 'Cachorro grande', 'Sem raça', [], 3)}
         self.__controlador_doacao = controlador_doacao
         self.__controlador_vacina = ControladorVacina()
         self.__tela_cachorro = TelaCachorro()
@@ -45,9 +45,9 @@ class ControladorCachorro():
         return lista_vacinas
 
     def verificar_vacinas(self, numero_chip):
-        if len(self.__cachorros[numero_chip].historico_vacinacao()) == 3:
+        if len(self.__cachorros[numero_chip].historico_vacinacao) == 3:
             return 2
-        elif len(self.__cachorros[numero_chip].historico_vacinacao()) != 3:
+        elif len(self.__cachorros[numero_chip].historico_vacinacao) != 3:
             return 1
 
     def listar_cachorros(self):

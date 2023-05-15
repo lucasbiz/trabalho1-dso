@@ -17,14 +17,18 @@ class ControladorDoacao():
     #consulta de doacoes
 
     def mostra_doacoes(self):
-        for doacao in self.__doacoes:
-            self.__tela_doacao.mostra_doacoes(doacao) #serao objetos que passarao por aqui, ai vai ter que incluir seus atributos no print
+        if self.__doacoes == []:
+            self.__tela_doacao.sem_registro_doacoes()
+        else:
+            for doacao in self.__doacoes:
+                dados_doacao = {'data da doação': doacao.data, 'numero do animal doado': doacao.animal.numero_chip, 'nome do doador': doacao.doador.nome}
+                self.__tela_doacao.mostra_doacoes(dados_doacao)
 
     def voltar(self):
         self.__controlador_ong.mostra_tela()
 
     def mostra_tela_consulta(self):
-        lista_opcoes = {1:self.mostra_doacoes, 2: self.mostra_doacoes_periodo, 3: self.voltar}
+        lista_opcoes = {1:self.mostra_doacoes, 2: self.voltar}
 
         opcao_escolhida = self.__tela_doacao.tela_opcoes_consulta()
         funcao_escolhida = lista_opcoes[opcao_escolhida]
@@ -87,7 +91,7 @@ class ControladorDoacao():
             doador = self.__controlador_doador.pegar_doador_cpf(cpf)
             nova_doacao = RegistroDoacao(dados_finais[0], doacao, doador, dados_finais[1])
             self.__doacoes.append(nova_doacao)
-            self.__tela_doacao.sucesso_doacao('Cachorro')
+            self.__tela_doacao.sucesso_doacao(doacao)
         
 
     def doar_gato(self, cpf):
@@ -100,15 +104,16 @@ class ControladorDoacao():
             doador = self.__controlador_doador.pegar_doador_cpf(cpf)
             nova_doacao = RegistroDoacao(dados_finais[0], doacao, doador, dados_finais[1])
             self.__doacoes.append(nova_doacao)
-            self.__tela_doacao.sucesso_doacao_gato()
+            self.__tela_doacao.sucesso_doacao(doacao)
 
 
     def listar_doadores(self):
         self.__controlador_doador.listar_doadores()
 
     def pegar_doadores(self):
-        self.pegar_doadores()
-    
+        chaves_doadores = self.__controlador_doador.pegar_doadores()
+        return chaves_doadores
+
     def listar_animais(self):
         cachorros = self.__controlador_cachorro.listar_cachorros()
         gatos = self.__controlador_gato.listar_gatos()

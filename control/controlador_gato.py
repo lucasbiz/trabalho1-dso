@@ -63,3 +63,13 @@ class ControladorGato():
                 gato = self.__gatos[gato_chave]
                 gato_infos = {'numero_chip': gato.numero_chip, 'nome': gato.nome, 'raca': gato.raca, 'tamanho': gato.tamanho}
                 self.__tela_gato.mostra_gatos(gato_infos)
+
+    def pegar_gato_pelo_numero(self):
+        numero_chip = self.__tela_gato.pegar_numero()
+        if numero_chip in self.__gatos:
+            return self.__gatos[numero_chip]
+        elif numero_chip == 1:
+            return 1
+        elif numero_chip not in self.__gatos:
+            self.__tela_gato.gato_nao_encontrado()
+            return 1

@@ -48,3 +48,22 @@ class TelaGato:
 
     def mostra_gatos(self, gato):
         print(gato)
+
+    def pegar_numero(self):
+        try:
+            print('----------------- Adoção ---------------')
+            numero = input('Informe o número do chip do gato que deseja adotar: ')
+            print('----------------- Adoção ---------------')
+
+        except Exception:
+            print('--------------- Aviso ----------------')
+            print('Número do chip inválido!')
+            print('--------------- Aviso ----------------')
+            return 1
+        
+        return int(numero)
+
+    def gato_nao_encontrado(self):
+        print('--------------- Aviso ----------------')
+        print('Gato não encontrado!')
+        print('--------------- Aviso ----------------')

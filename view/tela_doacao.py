@@ -6,18 +6,16 @@ class TelaDoacao:
         print('--------------- Consultar doações ---------------')
         print('Escolha o que deseja fazer: ')
         print('1 - Ver todo o registro de doaçoes')
-        print('2 - Consultar doações por um período')
-        print('3 - Voltar')
+        print('2 - Voltar')
         opcao = input('Escolha uma opção: ')
 
-        while opcao not in ['1','2','3']:
+        while opcao not in ['1','2']:
             print('--------------- Consultar doações ---------------')
             print('Escolha inválida!')
             print('--------------- Consultar doações ---------------')
             print('Escolha o que deseja fazer: ')
             print('1 - Ver todo o registro de doaçoes')
-            print('2 - Consultar doações por um período')
-            print('3 - Voltar')
+            print('2 - Voltar')
 
             opcao = input('Escolha uma opção: ')   
          
@@ -104,5 +102,10 @@ class TelaDoacao:
 
     def sucesso_doacao(self, animal):
         print('--------------- Aviso ----------------')
-        print(f'{animal} doado com sucesso!')
+        print(f'{animal.nome} doado com sucesso!')
+        print('--------------- Aviso ----------------')
+
+    def sem_registro_doacoes(self):
+        print('--------------- Aviso ----------------')
+        print('Ainda não existe nenhuma doação registrada!')
         print('--------------- Aviso ----------------')

@@ -18,6 +18,6 @@ class ControladorVacina():
         opcao = self.__tela_vacina.confirma_vacina()
         return opcao
 
-    def vacinar(vacina, data_aplicacao):
+    def vacinar(self, vacina, data_aplicacao):
         aplicacao_vacina = Vacina(vacina, data_aplicacao)
         return aplicacao_vacina

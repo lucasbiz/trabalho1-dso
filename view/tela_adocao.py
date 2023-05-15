@@ -4,8 +4,7 @@ class TelaAdocao:
         print('--------------- Consultar adoções ---------------')
         print('Escolha o que deseja fazer: ')
         print('1 - Ver todo o registro de adoções')
-        print('2 - Consultar adoções por um período')
-        print('3 - Voltar')
+        print('2 - Voltar')
         opcao = input('Escolha uma opção: ')
 
         while opcao not in ['1','2','3']:
@@ -14,8 +13,7 @@ class TelaAdocao:
             print('--------------- Consultar adoções ---------------')
             print('Escolha o que deseja fazer: ')
             print('1 - Ver todo o registro de adoções')
-            print('2 - Consultar adoções por um período')
-            print('3 - Voltar')
+            print('2 - Voltar')
 
             opcao = input('Escolha uma opção: ')   
          
@@ -42,7 +40,7 @@ class TelaAdocao:
          
         return int(opcao)
 
-    def mostra_doacoes(self,adocao):
+    def mostra_adocoes(self,adocao):
         print(adocao)
 
     def pedir_cpf(self):
@@ -146,4 +144,9 @@ class TelaAdocao:
     def erro_tamanho_apartamento(self):
         print('--------------- Aviso ----------------')
         print('Um cachorro de porte grande não pode ser adotado por um Adotante que mora em um apartamento pequeno! Retornando ao menu de adoções...')
+        print('--------------- Aviso ----------------')
+    
+    def sem_registro_adocoes(self):
+        print('--------------- Aviso ----------------')
+        print('Ainda não existe nenhuma adoção registrada!')
         print('--------------- Aviso ----------------')
