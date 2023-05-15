@@ -74,4 +74,4 @@ class TelaCachorro:
             print('--------------- Aviso ----------------')
             return 1
         
-        return numero
+        return int(numero)

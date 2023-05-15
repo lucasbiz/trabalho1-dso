@@ -44,7 +44,12 @@ class ControladorCachorro():
                 confirma_vacina = self.__controlador_vacina.confirma_vacina()
         return lista_vacinas
 
-        
+    def verificar_vacinas(self, animal):
+        if len(self.__cachorros[animal].historico_vacinacao()) == 3:
+            return 2
+        elif len(self.__cachorros[animal].historico_vacinacao()) != 3:
+            return 1
+
     def listar_cachorros(self):
         if self.__cachorros == {}:
             self.__tela_cachorro.sem_cachorros()
@@ -65,6 +70,7 @@ class ControladorCachorro():
         self.__controlador_vacina.vacinar('Hepatite infecciosa', data)
     
     def pegar_cachorro_pelo_numero(self):
+
         numero_chip = self.__tela_cachorro.pegar_numero()
         if numero_chip in self.__cachorros:
             return self.__cachorros[numero_chip]
