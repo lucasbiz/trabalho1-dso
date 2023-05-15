@@ -46,4 +46,3 @@ class Animal(ABC):
         if isinstance(historico_vacinacao, list):
             self.__historico_vacinacao = historico_vacinacao
 
-# se "vacinar" estará no controlador, precisa entrar aqui?

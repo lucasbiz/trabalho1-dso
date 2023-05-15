@@ -57,28 +57,36 @@ class ControladorDoacao():
 
         else:
             lista_doadores_cadastrados = self.__controlador_doador.pegar_doadores()
+
             if cpf not in lista_doadores_cadastrados:
                 opcao = self.__tela_doacao.cpf_nao_cadastrado()
+
                 if opcao == 1:
                     self.cadastra_doador()
                     self.doar()
+
                 elif opcao == 2:
                     self.mostra_tela_doacao()
     
         if cpf in lista_doadores_cadastrados:
             print('Cadastro de doador encontrado, iniciando doação!')
             opcao_escolhida = self.__tela_doacao.gato_ou_cachorro()
+
             if opcao_escolhida == 1:
                 self.doar_gato(cpf)
+
             elif opcao_escolhida == 2:
                 self.doar_cachorro(cpf)
+
             elif opcao_escolhida == 3:
                 self.mostra_tela_doacao()
 
     def doar_cachorro(self, cpf):
         doacao = self.__controlador_cachorro.cadastra_cachorro()
+
         if doacao == 1:
             self.mostra_tela_doacao()
+
         elif isinstance(doacao, object):
             dados_finais = self.__tela_doacao.finalizar_doacao()
             doador = self.__controlador_doador.pegar_doador_cpf(cpf)
@@ -91,6 +99,7 @@ class ControladorDoacao():
         doacao = self.__controlador_gato.cadastra_gato()
         if doacao == 1:
             self.mostra_tela_doacao()
+
         elif isinstance(doacao, object):
             dados_finais = self.__tela_doacao.finalizar_doacao()
             doador = self.__controlador_doador.pegar_doador_cpf(cpf)
@@ -101,3 +110,12 @@ class ControladorDoacao():
 
     def listar_doadores(self):
         self.__controlador_doador.listar_doadores()
+
+    def pegar_doadores(self):
+        self.pegar_doadores()
+    
+    def listar_animais(self):
+        cachorros = self.__controlador_cachorro.listar_cachorros()
+        gatos = self.__controlador_gato.listar_gatos()
+        
+        return [cachorros, gatos]

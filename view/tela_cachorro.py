@@ -36,13 +36,13 @@ class TelaCachorro:
 
         try:
             tamanho = input('Digite o TAMANHO do Cachorro (1 - pequeno/ 2 - medio/ 3 - grande) ou 4 para cancelar: ')
-            if tamanho == '4':
+            if tamanho == '4' or tamanho not in ['1','2','3']:
                 return 1
         except Exception:
             print('--------------- TAMANHO inválido! revise seus dados e tente novamente. ---------------')
             return 1    
         
-        lista_cadastro = [numero_chip, nome, raca, tamanho]    
+        lista_cadastro = [numero_chip, nome, raca, int(tamanho)]    
 
         return lista_cadastro
     
@@ -51,3 +51,8 @@ class TelaCachorro:
         print('Cachorro cadastrado com sucesso!')
         print('--------------- Aviso ----------------')
     
+    def sem_cachorros(self):
+        print('Não existem cachorros cadastrados!')
+
+    def mostra_cachorros(self, cachorro):
+        print(cachorro)

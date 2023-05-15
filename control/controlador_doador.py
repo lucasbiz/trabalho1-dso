@@ -4,7 +4,7 @@ from model.doador import Doador
 class ControladorDoador():
 
     def __init__(self, controlador_doacao):
-        self.__doadores = {112: Doador(112, 'Lucas', '02/05/00', 'Rua Antonio Costa')}
+        self.__doadores = {112: Doador(112, 'Lucas Doador', '02/05/00', 'Rua Antonio Costa')}
         self.__controlador_doacao = controlador_doacao
         self.__tela_doador = TelaDoador()
 

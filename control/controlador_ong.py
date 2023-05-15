@@ -27,20 +27,22 @@ class ControladorOng():
     
     def listar_doadores(self):
         self.__controlador_doacao.listar_doadores()
+    
+    def pegar_doadores(self):
+        self.__controlador_doacao.pegar_doadores()
 
     def listar_adotantes(self):
         self.__controlador_adocao.listar_adotantes()
 
     def listar_animais(self):
-        pass
-        #deixar um gato e um cachorro pré cadastrados para ajudar na apresentação
+        self.__controlador_doacao.listar_animais()
 
     def finalizar(self):
         exit(0)
 
     def mostra_tela(self):
         lista_opcoes = {1: self.consultar_doacoes, 2: self.consultar_adocoes, 3: self.listar_doadores, 4: self.listar_adotantes, 5: self.doar, 6: self.adotar, 7: self.finalizar}
-        #colocar uma opcao de finalizar sistema usando exit
+
         while True:
             opcao_escolhida = self.__tela_ong.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]

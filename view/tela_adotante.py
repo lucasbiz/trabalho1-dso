@@ -38,13 +38,36 @@ class TelaAdotante:
             return 1    
 
         try:
-            tipo_habitacao = input('Digite o TIPO DE HABITACAO do adotante (1 - Pequena/ 2 - Media /3 - Grande ) ou 1 para cancelar: ')
-            if tipo_habitacao == '1':
+            print('--------------- Tipo de habitação ---------------')
+            print('Informe o tipo de habitação que você mora')
+            print('1 - Casa pequena')
+            print('2 - Casa media')
+            print('3 - Casa grande')
+            print('4 - Apartamento pequeno')
+            print('5 - Apartamento medio')
+            print('6 - Apartamento grande')
+            print('7 - Cancelar ')
+            tipo_habitacao = input('Digite o TIPO DE HABITACAO do adotante: ')
+            if tipo_habitacao == '7' or tipo_habitacao not in ['1', '2', '3', '4', '5', '6', '7']:
                 return 1
         except Exception:
             print('--------------- TIPO DE HABITACAO inválida! revise seus dados e tente novamente. ---------------')
             return 1   
         
+
+        if int(tipo_habitacao) == 1:
+            tipo_habitacao = ['casa', 'pequena']
+        elif int(tipo_habitacao) == 2:
+            tipo_habitacao = ['casa', 'media']
+        elif int(tipo_habitacao) == 3:
+            tipo_habitacao = ['casa', 'grande']
+        elif int(tipo_habitacao) == 4:
+            tipo_habitacao = ['apartamento', 'pequeno']
+        elif int(tipo_habitacao) == 5:
+            tipo_habitacao = ['apartamento', 'medio']
+        elif int(tipo_habitacao) == 6:
+            tipo_habitacao = ['apartamento', 'grande']
+
         lista_cadastro = [cpf, nome, data_nascimento, endereco, tipo_habitacao]    
 
         return lista_cadastro
@@ -67,4 +90,8 @@ class TelaAdotante:
     def cpf_nao_encontrado(self, cpf):
         print('--------------- Aviso ---------------')
         print(f'CPF {cpf} não encontrado!')
+        print('--------------- Aviso ---------------')
+    
+    def cpf_ja_cadastrado_doador(cpf):
+        print(f'CPF {cpf} já cadastrado como doador!')
         print('--------------- Aviso ---------------')

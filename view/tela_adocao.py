@@ -117,3 +117,33 @@ class TelaAdocao:
     
     def adocao_cancelada_termo():
         print('Não é possivel adotar um animal sem assinar o termo, adoção cancelada!')
+
+    def erro_falta_vacinas(self,):
+
+        print('--------------- Aviso ----------------')
+        print('O animal escolhido não possui as vacinas necessárias! Deseja vaciná-lo com as faltantes?')
+        print('1 - SIM')
+        print('2 - NÃO')
+        opcao = input('Informe sua escolha: ')
+        print('--------------- Aviso ----------------')
+
+        while opcao not in ['1','2']:
+            print('--------------- Aviso ----------------')
+            print('Opção inválida! Informe novamente.')
+            print('O animal escolhido não possui as vacinas necessárias! Deseja vaciná-lo com as faltantes?')
+            print('1 - SIM')
+            print('2 - NÃO')
+            opcao = input('Informe sua escolha: ')
+            print('--------------- Aviso ----------------')
+        
+        return int(opcao)
+
+    def cancelar_adocao_falta_vacinas(self):
+        print('--------------- Aviso ----------------')
+        print('Um animal precisa de todas as 3 vacinas para poder ser adotado! Adoção cancelada!')
+        print('--------------- Aviso ----------------')
+
+    def erro_tamanho_apartamento(self):
+        print('--------------- Aviso ----------------')
+        print('Um cachorro de porte grande não pode ser adotado por um Adotante que mora em um apartamento pequeno! Retornando ao menu de adoções...')
+        print('--------------- Aviso ----------------')

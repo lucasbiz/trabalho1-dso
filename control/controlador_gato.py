@@ -6,7 +6,7 @@ from control.controlador_vacina import ControladorVacina
 class ControladorGato():
 
     def __init__(self, controlador_doacao):
-        self.__gatos = {}
+        self.__gatos = {123: Gato(123, 'Thomas', 'Frajola', [])}
         self.__controlador_doacao = controlador_doacao
         self.__controlador_vacina = ControladorVacina()
         self.__tela_gato = TelaGato()
@@ -55,4 +55,14 @@ class ControladorGato():
     def vacinar_gato_completo(self, gato, data):
         gato.historico_vacinacao = []
         self.__controlador_vacina.vacinar('Raiva', data)
+        self.__controlador_vacina.vacinar('Leptospirose', data)
+        self.__controlador_vacina.vacinar('Hepatite infecciosa', data)
 
+    def listar_gatos(self):
+        if self.__gatos == {}:
+            self.__tela_gato.sem_gatos()
+        else:
+            for gato_chave in self.__gatos:
+                gato = self.__gatos[gato_chave]
+                gato_infos = {'numero_chip': gato.numero_chip, 'nome': gato.nome, 'raca': gato.raca, 'tamanho': gato.tamanho}
+                self.__tela_gato.mostra_gatos(gato_infos)
