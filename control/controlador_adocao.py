@@ -84,7 +84,7 @@ class ControladorAdocao():
             nova_adocao = RegistroAdocao(dados_finais[0], adocao, adotante, dados_finais[1])
             if nova_adocao.assinou_termo == 2:
                 self.__tela_adocao.adocao_cancelada_termo()
-                self.__controlador_ong.doar()
+                self.__controlador_ong.adotar()
             elif nova_adocao.assinou_termo == 1:
                 self.__adocoes.append(nova_adocao)
                 self.__tela_adocao.sucesso_adocao('Cachorro')
@@ -98,14 +98,31 @@ class ControladorAdocao():
         elif isinstance(adocao, object):
             dados_finais = self.__tela_adocao.finalizar_adocao()
             adotante = self.__controlador_adotante.pegar_adotante_cpf(cpf)
-            nova_adocao = RegistroAdocao(dados_finais[0], adocao, adotante, dados_finais[1])
-            if nova_adocao.assinou_termo == 2:
-                self.__tela_adocao.adocao_cancelada_termo()
-                self.__controlador_ong.doar()
-            elif nova_adocao.assinou_termo == 1:
-                self.__adocoes.append(nova_adocao)
-                self.__tela_adocao.sucesso_adocao('Gato')
-                self.__controlador_gato.finalizar_adocao(adocao.numero_chip)
+            verificar_vacinas = self.__controlador_gato.verificar_vacinas()
+            if verificar_vacinas == 2:
+                nova_adocao = RegistroAdocao(dados_finais[0], adocao, adotante, dados_finais[1])
+                if nova_adocao.assinou_termo == 2:
+                    self.__tela_adocao.adocao_cancelada_termo()
+                    self.__controlador_ong.adotar()
+                elif nova_adocao.assinou_termo == 1:
+                    self.__adocoes.append(nova_adocao)
+                    self.__tela_adocao.sucesso_adocao('Gato')
+                    self.__controlador_gato.finalizar_adocao(adocao.numero_chip)
+            elif verificar_vacinas == 1:
+                falta_vacinas = self.__tela_adocao.erro_falta_vacinas()
+                if falta_vacinas == 1:
+                    self.__controlador_gato.vacinar_gato_completo(adocao, dados_finais[0])
+                    nova_adocao = RegistroAdocao(dados_finais[0], adocao, adotante, dados_finais[1])
+                    if nova_adocao.assinou_termo == 2:
+                        self.__tela_adocao.adocao_cancelada_termo()
+                        self.__controlador_ong.adotar()
+                    elif nova_adocao.assinou_termo == 1:
+                        self.__adocoes.append(nova_adocao)
+                        self.__tela_adocao.sucesso_adocao('Gato')
+                        self.__controlador_gato.finalizar_adocao(adocao.numero_chip)
+                elif falta_vacinas == 2:
+                    self.__tela_adocao.cancelar_adocao_falta_vacinas()
+                    self.mostra_tela_adocao()                  
 
 
     def listar_adotantes(self):

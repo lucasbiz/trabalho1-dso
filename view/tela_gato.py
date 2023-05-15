@@ -42,3 +42,9 @@ class TelaGato:
         print('--------------- Aviso ----------------')
         print('Gato cadastrado com sucesso!')
         print('--------------- Aviso ----------------')
+
+    def sem_gatos(self):
+        print('Não existem gatos cadastrados!')
+
+    def mostra_gatos(self, gato):
+        print(gato)
