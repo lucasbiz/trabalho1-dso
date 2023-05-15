@@ -45,3 +45,14 @@ class ControladorGato():
 
     def finalizar_adocao(self, identificador):
         self.__gatos.pop(identificador)
+    
+    def verificar_vacinas(self, animal):
+        if len(self.__gatos[animal].historico_vacinacao()) == 3:
+            return 2
+        elif len(self.__gatos[animal].historico_vacinacao()) != 3:
+            return 1
+    
+    def vacinar_gato_completo(self, gato, data):
+        gato.historico_vacinacao = []
+        self.__controlador_vacina.vacinar('Raiva', data)
+

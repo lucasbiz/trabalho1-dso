@@ -55,8 +55,8 @@ class ControladorAdocao():
             self.mostra_tela_adocao()
 
         else:
-            lista_adotantees_cadastrados = self.__controlador_adotante.pegar_adotantees()
-            if cpf not in lista_adotantees_cadastrados:
+            lista_adotantes_cadastrados = self.__controlador_adotante.pegar_adotantees()
+            if cpf not in lista_adotantes_cadastrados:
                 opcao = self.__tela_adocao.cpf_nao_cadastrado()
                 if opcao == 1:
                     self.cadastra_adotante()
@@ -64,7 +64,7 @@ class ControladorAdocao():
                 elif opcao == 2:
                     self.mostra_tela_adocao()
     
-        if cpf in lista_adotantees_cadastrados:
+        if cpf in lista_adotantes_cadastrados:
             print('Cadastro de adotante encontrado, iniciando doação!')
             opcao_escolhida = self.__tela_adocao.gato_ou_cachorro()
             if opcao_escolhida == 1:
