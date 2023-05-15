@@ -90,7 +90,7 @@ class ControladorAdocao():
             if isinstance(cachorro, object):
                 dados_finais = self.__tela_adocao.finalizar_adocao()
                 adotante = self.__controlador_adotante.pegar_adotante_cpf(cpf)
-                verificar_vacinas = self.__controlador_cachorro.verificar_vacinas(cachorro)
+                verificar_vacinas = self.__controlador_cachorro.verificar_vacinas(cachorro.numero_chip)
 
                 if verificar_vacinas == 2:
                     nova_adocao = RegistroAdocao(dados_finais[0], cachorro, adotante, dados_finais[1])

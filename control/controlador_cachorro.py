@@ -44,10 +44,10 @@ class ControladorCachorro():
                 confirma_vacina = self.__controlador_vacina.confirma_vacina()
         return lista_vacinas
 
-    def verificar_vacinas(self, animal):
-        if len(self.__cachorros[animal].historico_vacinacao()) == 3:
+    def verificar_vacinas(self, numero_chip):
+        if len(self.__cachorros[numero_chip].historico_vacinacao()) == 3:
             return 2
-        elif len(self.__cachorros[animal].historico_vacinacao()) != 3:
+        elif len(self.__cachorros[numero_chip].historico_vacinacao()) != 3:
             return 1
 
     def listar_cachorros(self):
