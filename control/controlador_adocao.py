@@ -22,9 +22,6 @@ class ControladorAdocao():
             dados_adocao = {'data da adoção': adocao.data, 'numero do animal adotado': adocao.animal.numero_chip, 'nome do adotante': adocao.adotante.nome }
             self.__tela_adocao.mostra_adocoes(dados_adocao)
 
-    def mostra_adocoes_periodo(self):
-        pass
-
     def voltar(self):
         self.__controlador_ong.mostra_tela()
 

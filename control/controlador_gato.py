@@ -40,9 +40,6 @@ class ControladorGato():
     def listar_gatos(self):
         pass
 
-    def vacinar_gato(self):
-        pass
-
     def finalizar_adocao(self, identificador):
         self.__gatos.pop(identificador)
     

@@ -3,7 +3,7 @@ from model.animal import Animal
 
 class Cachorro(Animal):
 
-    def __init__(self, numero_chip: int, nome: str, raca: str, historico_vacinacao: list, tamanho: str):
+    def __init__(self, numero_chip: int, nome: str, raca: str, historico_vacinacao: list, tamanho: int):
         super().__init__(numero_chip, nome, raca, historico_vacinacao)
         self.__tamanho = tamanho
 

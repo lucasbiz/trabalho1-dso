@@ -76,10 +76,10 @@ class TelaAdotante:
     def mostra_sucesso_cadastro(self, cpf):
         print(f'Adotante com CPF: {cpf} cadastrado com sucesso!')
 
-    def mostra_adotantees(self, adotante):
+    def mostra_adotantes(self, adotante):
         print(adotante)
 
-    def sem_adotantees(self):
+    def sem_adotantes(self):
         print('Não existem adotantes cadastrados!')
 
     def cpf_ja_cadastrado(self, cpf):

@@ -14,16 +14,11 @@ class ControladorDoacao():
         self.__controlador_gato = ControladorGato(self)
         self.__tela_doacao = TelaDoacao()
 
-
-
     #consulta de doacoes
 
     def mostra_doacoes(self):
         for doacao in self.__doacoes:
             self.__tela_doacao.mostra_doacoes(doacao) #serao objetos que passarao por aqui, ai vai ter que incluir seus atributos no print
-
-    def mostra_doacoes_periodo(self):
-        pass
 
     def voltar(self):
         self.__controlador_ong.mostra_tela()
