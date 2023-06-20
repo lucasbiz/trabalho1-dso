@@ -13,36 +13,51 @@ class ControladorOng():
     def inicia_sistema(self):
         self.mostra_tela()
 
-    def consultar_doacoes(self):
-        self.__controlador_doacao.mostra_tela_consulta()
+    # def consultar_doacoes(self):
+    #     self.__controlador_doacao.mostra_tela_consulta()
 
-    def consultar_adocoes(self):
-        self.__controlador_adocao.mostra_tela_consulta()
+    # def consultar_adocoes(self):
+    #     self.__controlador_adocao.mostra_tela_consulta()
 
-    def doar(self):
-        self.__controlador_doacao.mostra_tela_doacao()
+    # def doar(self):
+    #     self.__controlador_doacao.mostra_tela_doacao()
 
-    def adotar(self):
-        self.__controlador_adocao.mostra_tela_adocao()
+    # def adotar(self):
+    #     self.__controlador_adocao.mostra_tela_adocao()
     
-    def listar_doadores(self):
-        self.__controlador_doacao.listar_doadores()
+    # def listar_doadores(self):
+    #     self.__controlador_doacao.listar_doadores()
     
-    def pegar_doadores(self):
-        chaves_doadores = self.__controlador_doacao.pegar_doadores()
-        return chaves_doadores
+    # def pegar_doadores(self):
+    #     chaves_doadores = self.__controlador_doacao.pegar_doadores()
+    #     return chaves_doadores
 
-    def listar_adotantes(self):
-        self.__controlador_adocao.listar_adotantes()
+    # def listar_adotantes(self):
+    #     self.__controlador_adocao.listar_adotantes()
 
-    def listar_animais(self):
-        self.__controlador_doacao.listar_animais()
+    # def listar_animais(self):
+    #     self.__controlador_doacao.listar_animais()
+
+    def area_adocao(self):
+        # chamar a tela de adocao para as opções
+        pass
+
+    def area_doacao(self):
+        # chamar a tela de doacao para as opções
+        # 
+        pass
+
+    def area_animais(self):
+        # cadastrar animal
+        # editar um animal
+        # excluir um animal
+        pass
 
     def finalizar(self):
         exit(0)
 
     def mostra_tela(self):
-        lista_opcoes = {1: self.consultar_doacoes, 2: self.consultar_adocoes, 3: self.listar_doadores, 4: self.listar_adotantes, 5: self.doar, 6: self.adotar, 7: self.finalizar}
+        lista_opcoes = {1: self.area_adocao, 2: self.area_doacao, 3: self.area_animais, 0: self.finalizar}
 
         while True:
             opcao_escolhida = self.__tela_ong.tela_opcoes()
