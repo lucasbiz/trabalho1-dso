@@ -1,5 +1,44 @@
+from PySimpleGUI import PySimpleGUI as sg
+
 class TelaAdocao:
 
+    def tela_opcoes_adocao(self):
+
+        self.iniciar_tela()
+        button, values = self.__window.Read()
+        opcao = 0
+        if button == 'Adotar um animal':
+            opcao = 1
+        if button == 'Cadastrar um Adotante':
+            opcao = 2
+        if button == 'Editar um Adotante':
+            opcao = 3
+        if button == 'Excluir um Adotante':
+            opcao = 4
+        if button == 'Voltar':
+            opcao = 5
+        self.close()
+        return opcao
+
+    def close(self):
+        self.__window.Close()
+
+    def iniciar_tela(self):
+
+        sg.theme('SandyBeach')
+        layout = [
+            [sg.Text('Menu de adoção', size=(50, 1))],
+            [sg.Text('O que deseja fazer?')],
+            [sg.Button('Adotar um animal', size=(20, 1))],
+            [sg.Button('Cadastrar um Adotante', size=(20, 1))],
+            [sg.Button('Editar um Adotante', size=(20, 1))],
+            [sg.Button('Excluir um Adotante', size=(20, 1))],
+            [sg.Button('Voltar', size=(20, 1))]
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+         
+ 
     def tela_opcoes_consulta(self):
         print('--------------- Consultar adoções ---------------')
         print('Escolha o que deseja fazer: ')
@@ -14,27 +53,6 @@ class TelaAdocao:
             print('Escolha o que deseja fazer: ')
             print('1 - Ver todo o registro de adoções')
             print('2 - Voltar')
-
-            opcao = input('Escolha uma opção: ')   
-         
-        return int(opcao)
-
-    def tela_opcoes_adocao(self):
-        print('--------------- Adoções ---------------')
-        print('Escolha o que deseja fazer: ')
-        print('1 - Adotar um animal')
-        print('2 - Cadastrar um Adotante')
-        print('3 - Voltar')
-        opcao = input('Escolha uma opção: ')
-
-        while opcao not in ['1','2','3']:
-            print('--------------- adoções ---------------')
-            print('Escolha inválida!')
-            print('--------------- adoções ---------------')
-            print('Escolha o que deseja fazer: ')
-            print('1 - Adotar um animal')
-            print('2 - Cadastrar um Adotante')
-            print('3 - Voltar')
 
             opcao = input('Escolha uma opção: ')   
          

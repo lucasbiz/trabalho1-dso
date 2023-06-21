@@ -15,31 +15,10 @@ class ControladorAdocao():
         self.__tela_adocao = TelaAdocao()
 
 
-
-
-    def mostra_adocoes(self):
-        if self.__adocoes == []:
-            self.__tela_adocao.sem_registro_adocoes()
-        else:
-            for adocao in self.__adocoes:
-                dados_adocao = {'data da adoção': adocao.data, 'numero do animal adotado': adocao.animal.numero_chip, 'nome do adotante': adocao.adotante.nome }
-                self.__tela_adocao.mostra_adocoes(dados_adocao)
-
-    def voltar(self):
-        self.__controlador_ong.mostra_tela()
-
-    def mostra_tela_consulta(self):
-        lista_opcoes = {1:self.mostra_adocoes, 2: self.voltar}
-
-        opcao_escolhida = self.__tela_adocao.tela_opcoes_consulta()
-        funcao_escolhida = lista_opcoes[opcao_escolhida]
-        funcao_escolhida()
-
-  
-    #adocoes
-
+    # ========== SISTEMA DE ADOÇÃO ==========
+    # TELA DE ADOÇÃO
     def mostra_tela_adocao(self):
-        lista_opcoes = {1:self.adotar, 2: self.cadastra_adotante, 3: self.voltar}
+        lista_opcoes = {1:self.adotar, 2: self.cadastra_adotante, 3: self.editar_adotante, 4: self.excluir_adotante, 5: self.voltar}
 
         opcao_escolhida = self.__tela_adocao.tela_opcoes_adocao()
         funcao_escolhida = lista_opcoes[opcao_escolhida]
@@ -47,6 +26,14 @@ class ControladorAdocao():
 
     def cadastra_adotante(self):
         self.__controlador_adotante.cadastrar_adotante()
+
+    def editar_adotante(self):
+        pass
+
+    def excluir_adotante(self):
+        pass
+
+    # INICIANDO ADOÇÃO
 
     def adotar(self):
         cpf = self.__tela_adocao.pedir_cpf()
@@ -67,7 +54,8 @@ class ControladorAdocao():
                     self.mostra_tela_adocao()
     
         if cpf in lista_adotantes_cadastrados:
-            print('Cadastro de adotante encontrado, iniciando doação!')
+            # print('Cadastro de adotante encontrado, iniciando doação!')
+            # mensagem de cadastro encontrado e iniciar doação
             opcao_escolhida = self.__tela_adocao.gato_ou_cachorro()
 
             if opcao_escolhida == 1:
@@ -86,7 +74,6 @@ class ControladorAdocao():
             self.mostra_tela_adocao()
 
         if int(cachorro.tamanho) == 3:
-            print('PEGOU O TAMANHO DO DOG')
             if tipo_habitacao[0] == 'apartamento' and tipo_habitacao[1] == 'pequeno':
                 self.__tela_adocao.erro_tamanho_apartamento()
                 self.mostra_tela_adocao()
@@ -180,3 +167,24 @@ class ControladorAdocao():
     def verificar_doadores(self):
         doadores = self.__controlador_ong.pegar_doadores()
         return doadores
+
+    def mostra_adocoes(self):
+        if self.__adocoes == []:
+            self.__tela_adocao.sem_registro_adocoes()
+        else:
+            for adocao in self.__adocoes:
+                dados_adocao = {'data da adoção': adocao.data, 'numero do animal adotado': adocao.animal.numero_chip, 'nome do adotante': adocao.adotante.nome }
+                self.__tela_adocao.mostra_adocoes(dados_adocao)
+
+    def voltar(self):
+        self.__controlador_ong.mostra_tela()
+
+    def mostra_tela_consulta(self):
+        lista_opcoes = {1:self.mostra_adocoes, 2: self.voltar}
+
+        opcao_escolhida = self.__tela_adocao.tela_opcoes_consulta()
+        funcao_escolhida = lista_opcoes[opcao_escolhida]
+        funcao_escolhida()
+
+  
+

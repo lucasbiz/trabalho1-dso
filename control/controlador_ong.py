@@ -39,19 +39,18 @@ class ControladorOng():
     #     self.__controlador_doacao.listar_animais()
 
     def area_adocao(self):
-        # chamar a tela de adocao para as opções
-        pass
+        self.__controlador_adocao.mostra_tela_adocao()
 
     def area_doacao(self):
         # chamar a tela de doacao para as opções
         # 
-        pass
+        print('AREA DOACAO')
 
     def area_animais(self):
         # cadastrar animal
         # editar um animal
         # excluir um animal
-        pass
+        print('AREA ANIMAIS')
 
     def finalizar(self):
         exit(0)
@@ -59,7 +58,6 @@ class ControladorOng():
     def mostra_tela(self):
         lista_opcoes = {1: self.area_adocao, 2: self.area_doacao, 3: self.area_animais, 0: self.finalizar}
 
-        while True:
-            opcao_escolhida = self.__tela_ong.tela_opcoes()
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+        opcao_escolhida = self.__tela_ong.tela_opcoes()
+        funcao_escolhida = lista_opcoes[opcao_escolhida]
+        funcao_escolhida()

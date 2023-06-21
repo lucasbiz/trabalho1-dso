@@ -12,14 +12,15 @@ class TelaOng:
         self.iniciar_tela()
         button, values = self.__window.Read()
         opcao = 0
-        if values['1']:
+        if button == 'Área de Adoção':
+            print('FOI')
             opcao = 1
-        if values['2']:
+        if button == 'Área de Doação':
             opcao = 2
-        if values['3']:
+        if button == 'Animais':
             opcao = 3
         # cobre os casos de voltar, não clicar em nada e fechar janela, ou clicar cancelar
-        if values['0'] or button in (None,'Cancelar'):
+        if button in (None,'Finalizar sistema'):
             opcao = 0
         self.close()
         return opcao
@@ -29,15 +30,14 @@ class TelaOng:
 
     def iniciar_tela(self):
 
-        sg.theme('Reddit')
+        sg.theme('SandyBeach')
         layout = [
-            [sg.Text('Bem vindo a Ong das Patinhas!', font=("Helvica",25))],
-            [sg.Text('O que deseja fazer?', font=("Helvica",25))],
-            [sg.Radio('Área de Adoção',"RD1", key='1')],
-            [sg.Radio('Área de Doação',"RD1", key='2')],
-            [sg.Radio('Animais',"RD1", key='3')],
-            [sg.Radio('Finalizar sistema',"RD1", key='0')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Text('Bem vindo a Ong das Patinhas!', size=(50, 1))],
+            [sg.Text('O que deseja fazer?')],
+            [sg.Button('Área de Adoção', size=(20, 1))],
+            [sg.Button('Área de Doação', size=(20, 1))],
+            [sg.Button('Animais', size=(20, 1))],
+            [sg.Button('Finalizar sistema', size=(20, 1))],
         ]
 
         self.__window = sg.Window('Ong das Patinhas').Layout(layout)
