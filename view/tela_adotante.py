@@ -14,7 +14,6 @@ class TelaAdotante:
 
         while cadastro_finalizado == False:
             button, values = self.__window.Read()
-            opcao = 0
 
             if button == 'Confirmar':
 
@@ -66,7 +65,7 @@ class TelaAdotante:
                 # VALIDACAO TIPO DE HABITACAO
                 menu_dropdown_habitacao = ['Casa Pequena', 'Casa média', 'Casa grande', 'Apartamento pequeno', 'Apartamento médio', 'Apartamento grande']
                 if values['tipo_habitacao'] not in menu_dropdown_habitacao:
-                    sg.popup(values['TIPO DE HABITAÇÃO INVÁLIDA'])
+                    sg.popup('TIPO DE HABITAÇÃO INVÁLIDA')
                     self.__window['tipo_habitacao'].Update('')
                 else:
                     try:
@@ -75,7 +74,8 @@ class TelaAdotante:
                         sg.popup('TIPO DE HABITAÇÃO INVÁLIDA')
                         self.__window['tipo_habitacao'].Update('')
 
-                cadastro_finalizado = True
+                if len(informacoes_cadastro) == 5:
+                    cadastro_finalizado = True
 
             if button == 'Voltar':
                 cadastro_finalizado = True
