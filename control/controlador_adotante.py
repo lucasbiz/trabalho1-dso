@@ -4,7 +4,7 @@ from model.adotante import Adotante
 class ControladorAdotante():
 
     def __init__(self, controlador_adocao):
-        self.__adotantes = {114: Adotante(114, 'Lucas adotante', '02/05/00', 'Rua Antonio Costa', ['casa', 'media']), 999: Adotante(999, 'Lucas adotante', '02/05/00', 'Rua Antonio Costa', ['apartamento', 'pequeno'])}
+        self.__adotantes = {11111111111: Adotante(11237723981, 'Lucas adotante', '02/05/00', 'Rua Antonio Costa', ['casa', 'media']), 11122233344: Adotante(11111111111, 'Lucas adotante 2', '02/05/00', 'Rua Antonio Costa', ['apartamento', 'pequeno'])}
         self.__controlador_adocao = controlador_adocao
         self.__tela_adotante = TelaAdotante()
 
@@ -22,6 +22,7 @@ class ControladorAdotante():
 
         elif isinstance(opcao_escolhida, list):
 
+            print(self.__controlador_adocao.verificar_doadores())
             if opcao_escolhida[0] not in self.__adotantes and opcao_escolhida[0] not in self.__controlador_adocao.verificar_doadores():
                 adotante = Adotante(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3], opcao_escolhida[4])
                 self.__adotantes[opcao_escolhida[0]] = adotante
@@ -36,15 +37,19 @@ class ControladorAdotante():
                 self.__controlador_adocao.mostra_tela_adocao()               
 
     def listar_adotantes(self):
+
         if self.__adotantes == {}:
             self.__tela_adotante.sem_adotantes()
 
         else:
-
+            lista_adotantes = []
             for adotante_chave in self.__adotantes:
                 adotante = self.__adotantes[adotante_chave]
-                adotante_infos = {'nome': adotante.nome, 'cpf': adotante.cpf, 'data de nascimento': adotante.data_nascimento, 'endereço': adotante.endereco, 'tipo de habitacao': adotante.tipo_habitacao}
-                self.__tela_adotante.mostra_adotantes(adotante_infos)
+                lista_adotantes.append(adotante)
+            opcao_escolhida = self.__tela_adotante.mostra_adotantes(lista_adotantes)
+            if opcao_escolhida == 1:
+                return 1
+
 
     def pegar_adotantes(self):
         chaves_adotantes = []
@@ -61,3 +66,18 @@ class ControladorAdotante():
 
         else:
             self.__tela_adotante.cpf_nao_encontrado()
+
+    def remover_adotante(self):
+        cpf_informado = self.__tela_adotante.informe_cpf_remocao()
+
+        if cpf_informado == 1:
+            return 1
+
+        elif cpf_informado in self.__adotantes:
+            self.__adotantes.pop(cpf_informado)
+            self.__tela_adotante.adotante_removido_sucesso(cpf_informado)
+            return 0
+
+        else:
+            self.__tela_adotante.cpf_nao_encontrado(cpf_informado)
+            return 1

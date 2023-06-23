@@ -3,11 +3,13 @@ from control.controlador_adotante import ControladorAdotante
 from control.controlador_cachorro import ControladorCachorro
 from control.controlador_gato import ControladorGato
 from model.registro_adocao import RegistroAdocao
+from model.gato import Gato
+from model.adotante import Adotante
 
 class ControladorAdocao():
 
     def __init__(self, controlador_ong):
-        self.__adocoes = []
+        self.__adocoes = [RegistroAdocao('22/6/2023', Gato(123, 'Thomas', 'Frajola', []), Adotante(11237723981, 'Lucas adotante', '02/05/00', 'Rua Antonio Costa', ['casa', 'media']), True) ]
         self.__controlador_ong = controlador_ong
         self.__controlador_adotante = ControladorAdotante(self)
         self.__controlador_cachorro = ControladorCachorro(self)
@@ -18,7 +20,7 @@ class ControladorAdocao():
     # ========== SISTEMA DE ADOÇÃO ==========
     # TELA DE ADOÇÃO
     def mostra_tela_adocao(self):
-        lista_opcoes = {1:self.adotar, 2: self.cadastra_adotante, 3: self.editar_adotante, 4: self.excluir_adotante, 5: self.voltar}
+        lista_opcoes = {1:self.adotar, 2: self.listar_adocoes, 3: self.cadastra_adotante, 4: self.editar_adotante, 5: self.excluir_adotante, 6: self.listar_adotantes, 7: self.voltar}
 
         opcao_escolhida = self.__tela_adocao.tela_opcoes_adocao()
         funcao_escolhida = lista_opcoes[opcao_escolhida]
@@ -31,7 +33,25 @@ class ControladorAdocao():
         pass
 
     def excluir_adotante(self):
-        pass
+        opcao_escolhida = self.__controlador_adotante.remover_adotante()
+        if opcao_escolhida == 1 or opcao_escolhida == 0 :
+            self.mostra_tela_adocao()
+
+    def listar_adotantes(self):
+        opcao = self.__controlador_adotante.listar_adotantes()
+        if opcao == 1:
+            self.mostra_tela_adocao()
+
+    def listar_adocoes(self):
+        if self.__adocoes == []:
+            self.__tela_adocao.sem_registro_adocoes()
+        else:
+            lista_adocoes = []
+            for adocao in self.__adocoes:
+                lista_adocoes.append(adocao)
+            opcao_escolhida = self.__tela_adocao.mostra_adocoes(lista_adocoes)
+            if opcao_escolhida == 1:
+                self.mostra_tela_adocao()
 
     # INICIANDO ADOÇÃO
 
@@ -160,21 +180,11 @@ class ControladorAdocao():
                         self.__tela_adocao.cancelar_adocao_falta_vacinas()
                         self.mostra_tela_adocao()                
 
-
-    def listar_adotantes(self):
-        self.__controlador_adotante.listar_adotantes()
-
     def verificar_doadores(self):
-        doadores = self.__controlador_ong.pegar_doadores()
-        return doadores
+        cpfs_doadores = self.__controlador_ong.pegar_doadores()
+        return cpfs_doadores
 
-    def mostra_adocoes(self):
-        if self.__adocoes == []:
-            self.__tela_adocao.sem_registro_adocoes()
-        else:
-            for adocao in self.__adocoes:
-                dados_adocao = {'data da adoção': adocao.data, 'numero do animal adotado': adocao.animal.numero_chip, 'nome do adotante': adocao.adotante.nome }
-                self.__tela_adocao.mostra_adocoes(dados_adocao)
+
 
     def voltar(self):
         self.__controlador_ong.mostra_tela()

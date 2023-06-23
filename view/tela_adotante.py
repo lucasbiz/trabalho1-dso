@@ -9,11 +9,11 @@ class TelaAdotante:
     def mostra_tela_cadastro(self):
 
         cadastro_finalizado = False
-        informacoes_cadastro = []
         self.iniciar_tela()
 
         while cadastro_finalizado == False:
             button, values = self.__window.Read()
+            informacoes_cadastro = []
 
             if button == 'Confirmar':
 
@@ -23,8 +23,7 @@ class TelaAdotante:
                     self.__window['cpf'].Update('')
                 else:
                     try:
-                        int(values['cpf'])
-                        informacoes_cadastro.append(values['cpf'])
+                        informacoes_cadastro.append(int(values['cpf']))
                     except Exception:
                         sg.popup('CPF INVÁLIDO')
                         self.__window['cpf'].Update('')
@@ -77,12 +76,18 @@ class TelaAdotante:
                 if len(informacoes_cadastro) == 5:
                     cadastro_finalizado = True
 
+
+
             if button == 'Voltar':
                 cadastro_finalizado = True
                 self.close()
                 return 1
         # FIM VALIDAÇÕES, RETORNA LISTA DE INFORMAÇÕES
+        self.close()
         return informacoes_cadastro
+    
+    def mostra_sucesso_cadastro(self, cpf):
+        sg.popup(f'Adotante com CPF {cpf} cadastrado com sucesso!')
 
     # fecha a tela 
     def close(self):
@@ -108,29 +113,71 @@ class TelaAdotante:
 
         self.__window = sg.Window('Ong das Patinhas').Layout(layout)
 
-
-    def mostra_sucesso_cadastro(self, cpf):
-        print(f'Adotante com CPF: {cpf} cadastrado com sucesso!')
-
 # ==================== FIM CADASTRO ====================
 
 
-    def mostra_adotantes(self, adotante):
-        print(adotante)
+    def mostra_adotantes(self, adotantes):
+
+        sg.theme('SandyBeach')
+        layout = [[sg.Text('Nome', size=(20, 1)),sg.Text('CPF', size=(15, 1)),sg.Text('Endereço', size=(20, 1))]]
+        for adotante in adotantes:
+            layout.append([sg.Text(adotante.nome, size=(20, 1)),sg.Text(adotante.cpf, size=(15, 1)),sg.Text(adotante.endereco)])
+        layout.append([sg.Button('Voltar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+        if button == 'Voltar':
+            self.close()
+            return 1
 
     def sem_adotantes(self):
-        print('Não existem adotantes cadastrados!')
+        sg.popup('Não existem adotantes cadastrados!')
 
     def cpf_ja_cadastrado(self, cpf):
-        print('--------------- Aviso ---------------')
-        print(f'CPF {cpf} já cadastrado como adotante!')
-        print('--------------- Aviso ---------------')
+        sg.popup(f'CPF {cpf} já cadastrado como adotante!')
     
     def cpf_nao_encontrado(self, cpf):
-        print('--------------- Aviso ---------------')
-        print(f'CPF {cpf} não encontrado!')
-        print('--------------- Aviso ---------------')
+        sg.popup(f'CPF {cpf} não encontrado!')
     
     def cpf_ja_cadastrado_doador(self, cpf):
-        print(f'CPF {cpf} já cadastrado como doador!')
-        print('--------------- Aviso ---------------')
+        sg.popup(f'CPF {cpf} já cadastrado como doador!')
+
+    def adotante_removido_sucesso(self, cpf):
+        sg.popup(f'Adotante com CPF {cpf} foi removido com sucesso!')
+
+    def informe_cpf_remocao(self):
+
+        sg.theme('SandyBeach')
+        layout = [[sg.Text('Informe o CPF do Adotante que será removido: ', size=(20, 1)), sg.InputText(key='cpf_remocao', size=(15,1))]]
+        layout.append([sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        cpf_correto = False
+
+        while cpf_correto == False:
+
+            button, values = self.__window.Read()
+            if button == 'Confirmar':
+                # VALIDACAO CPF
+                if len(values['cpf_remocao']) != 11:
+                    sg.popup('CPF INVÁLIDO')
+                    self.__window['cpf_remocao'].Update('')
+                else:
+                    try:
+                        cpf = int(values['cpf_remocao'])
+                        cpf_correto = True
+                        self.close()
+                        return cpf
+
+                    except Exception:
+                        sg.popup('CPF INVÁLIDO')
+                        self.__window['cpf_remocao'].Update('')
+                
+
+            if button == 'Voltar':
+                self.close()
+                return 1

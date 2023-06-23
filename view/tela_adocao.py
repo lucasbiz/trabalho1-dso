@@ -1,6 +1,9 @@
+from datetime import date
 from PySimpleGUI import PySimpleGUI as sg
 
 class TelaAdocao:
+
+    # TELA DA ÁREA DE ADOÇÃO
 
     def tela_opcoes_adocao(self):
 
@@ -9,14 +12,18 @@ class TelaAdocao:
         opcao = 0
         if button == 'Adotar um animal':
             opcao = 1
-        if button == 'Cadastrar um Adotante':
+        if button == 'Listar Adoções':
             opcao = 2
-        if button == 'Editar um Adotante':
+        if button == 'Cadastrar um Adotante':
             opcao = 3
-        if button == 'Excluir um Adotante':
+        if button == 'Editar um Adotante':
             opcao = 4
-        if button == 'Voltar':
+        if button == 'Excluir um Adotante':
             opcao = 5
+        if button == 'Listar os Adotantes cadastrados':
+            opcao = 6
+        if button == 'Voltar':
+            opcao = 7
         self.close()
         return opcao
 
@@ -30,36 +37,37 @@ class TelaAdocao:
             [sg.Text('Menu de adoção', size=(50, 1))],
             [sg.Text('O que deseja fazer?')],
             [sg.Button('Adotar um animal', size=(20, 1))],
+            [sg.Button('Listar Adoções', size=(20, 1))],
             [sg.Button('Cadastrar um Adotante', size=(20, 1))],
             [sg.Button('Editar um Adotante', size=(20, 1))],
             [sg.Button('Excluir um Adotante', size=(20, 1))],
+            [sg.Button('Listar os Adotantes cadastrados', size=(20, 2))],
             [sg.Button('Voltar', size=(20, 1))]
         ]
 
         self.__window = sg.Window('Ong das Patinhas').Layout(layout)
          
- 
-    def tela_opcoes_consulta(self):
-        print('--------------- Consultar adoções ---------------')
-        print('Escolha o que deseja fazer: ')
-        print('1 - Ver todo o registro de adoções')
-        print('2 - Voltar')
-        opcao = input('Escolha uma opção: ')
+    # ================================
 
-        while opcao not in ['1','2','3']:
-            print('--------------- Consultar adoções ---------------')
-            print('Escolha inválida!')
-            print('--------------- Consultar adoções ---------------')
-            print('Escolha o que deseja fazer: ')
-            print('1 - Ver todo o registro de adoções')
-            print('2 - Voltar')
 
-            opcao = input('Escolha uma opção: ')   
-         
-        return int(opcao)
+    # LISTA TODAS AS ADOÇÕES REGISTRADAS
 
-    def mostra_adocoes(self,adocao):
-        print(adocao)
+    def mostra_adocoes(self, adocoes):
+        sg.theme('SandyBeach')
+        layout = [[sg.Text('Data da adoção', size=(15, 1)),sg.Text('Nome do Adotante', size=(20, 1)), sg.Text('Numero do chip do animal', size=(20, 1)), sg.Text('Nome do animal', size=(15, 1))]]
+        for adocao in adocoes:
+            layout.append([sg.Text(adocao.data, size=(15, 1)), sg.Text(adocao.adotante.nome, size=(20, 1)), sg.Text(adocao.animal.numero_chip, size=(20, 1)), sg.Text(adocao.animal.nome, size=(15, 1))])
+        layout.append([sg.Button('Voltar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+        if button == 'Voltar':
+            self.close()
+            return 1
+
+    # ================================
 
     def pedir_cpf(self):
         cpf = input('Informe o CPF do Adotante: ')
@@ -107,7 +115,8 @@ class TelaAdocao:
     
     def finalizar_adocao(self):
         print('---------------- Adoção ---------------')
-        data = input('Informe a data da adoção (dd/mm/aa): ')
+        data = date.today()
+        data_em_texto = '{}/{}/{}'.format(data.day, data.month, data.year)
         while len(data) != 8:
             print('--------------- Aviso -----------------')
             data = input('Data inválida! Informe a data da adoção (dd/mm/aa): ')

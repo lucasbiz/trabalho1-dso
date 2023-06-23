@@ -13,7 +13,6 @@ class TelaOng:
         button, values = self.__window.Read()
         opcao = 0
         if button == 'Área de Adoção':
-            print('FOI')
             opcao = 1
         if button == 'Área de Doação':
             opcao = 2

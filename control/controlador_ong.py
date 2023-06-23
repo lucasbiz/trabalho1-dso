@@ -28,9 +28,9 @@ class ControladorOng():
     # def listar_doadores(self):
     #     self.__controlador_doacao.listar_doadores()
     
-    # def pegar_doadores(self):
-    #     chaves_doadores = self.__controlador_doacao.pegar_doadores()
-    #     return chaves_doadores
+    def pegar_doadores(self):
+        chaves_doadores = self.__controlador_doacao.pegar_doadores()
+        return chaves_doadores
 
     # def listar_adotantes(self):
     #     self.__controlador_adocao.listar_adotantes()
