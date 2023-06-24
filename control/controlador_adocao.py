@@ -30,7 +30,9 @@ class ControladorAdocao():
         self.__controlador_adotante.cadastrar_adotante()
 
     def editar_adotante(self):
-        pass
+        opcao_escolhida = self.__controlador_adotante.editar_adotante()
+        if opcao_escolhida == 1 or opcao_escolhida == 0 :
+            self.mostra_tela_adocao()
 
     def excluir_adotante(self):
         opcao_escolhida = self.__controlador_adotante.remover_adotante()
@@ -52,6 +54,9 @@ class ControladorAdocao():
             opcao_escolhida = self.__tela_adocao.mostra_adocoes(lista_adocoes)
             if opcao_escolhida == 1:
                 self.mostra_tela_adocao()
+
+    def voltar(self):
+        self.__controlador_ong.mostra_tela()
 
     # INICIANDO ADOÇÃO
 
@@ -183,11 +188,6 @@ class ControladorAdocao():
     def verificar_doadores(self):
         cpfs_doadores = self.__controlador_ong.pegar_doadores()
         return cpfs_doadores
-
-
-
-    def voltar(self):
-        self.__controlador_ong.mostra_tela()
 
     def mostra_tela_consulta(self):
         lista_opcoes = {1:self.mostra_adocoes, 2: self.voltar}

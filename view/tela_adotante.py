@@ -7,9 +7,13 @@ class TelaAdotante:
 # ============= CADASTRO E VALIDAÇÕES =================
 
     def mostra_tela_cadastro(self):
+        self.iniciar_tela()
+        informacoes_cadastro = self.validacoes_cadastro()
+        return informacoes_cadastro
+    
+    def validacoes_cadastro(self):
 
         cadastro_finalizado = False
-        self.iniciar_tela()
 
         while cadastro_finalizado == False:
             button, values = self.__window.Read()
@@ -147,10 +151,10 @@ class TelaAdotante:
     def adotante_removido_sucesso(self, cpf):
         sg.popup(f'Adotante com CPF {cpf} foi removido com sucesso!')
 
-    def informe_cpf_remocao(self):
+    def informe_cpf(self):
 
         sg.theme('SandyBeach')
-        layout = [[sg.Text('Informe o CPF do Adotante que será removido: ', size=(20, 1)), sg.InputText(key='cpf_remocao', size=(15,1))]]
+        layout = [[sg.Text(f'Informe o CPF do Adotante: ', size=(20, 1)), sg.InputText(key='cpf', size=(15,1))]]
         layout.append([sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))])
 
         
@@ -163,21 +167,46 @@ class TelaAdotante:
             button, values = self.__window.Read()
             if button == 'Confirmar':
                 # VALIDACAO CPF
-                if len(values['cpf_remocao']) != 11:
+                if len(values['cpf']) != 11:
                     sg.popup('CPF INVÁLIDO')
-                    self.__window['cpf_remocao'].Update('')
+                    self.__window['cpf'].Update('')
                 else:
                     try:
-                        cpf = int(values['cpf_remocao'])
+                        cpf = int(values['cpf'])
                         cpf_correto = True
                         self.close()
                         return cpf
 
                     except Exception:
                         sg.popup('CPF INVÁLIDO')
-                        self.__window['cpf_remocao'].Update('')
+                        self.__window['cpf'].Update('')
                 
 
             if button == 'Voltar':
                 self.close()
                 return 1
+
+    def tela_edicao_adotante(self, adotante):
+
+        sg.theme('SandyBeach')
+
+        menu_dropdown_habitacao = ['Casa Pequena', 'Casa média', 'Casa grande', 'Apartamento pequeno', 'Apartamento médio', 'Apartamento grande']
+
+        layout = [
+            [sg.Text('Cadastro de novo Adotante', size=(50, 1))],
+            [sg.Text('Informe seus dados para prosseguir:')],
+            [sg.Text('CPF: ', size=(25, 1)), sg.InputText(adotante.cpf ,key='cpf', size=(20, 1))],
+            [sg.Text('Nome: ', size=(25, 1)), sg.InputText(adotante.nome ,key='nome', size=(20, 1))],
+            [sg.Text('Data de Nascimento(dd/mm/aaaa)', size=(25, 1)), sg.InputText(adotante.data_nascimento, key='data_nascimento', size=(20, 1))],
+            [sg.Text('Endereço: ', size=(25, 1)), sg.InputText(adotante.endereco, key='endereco', size=(20, 1))],
+            [sg.Text('Tipo de Habitação: ', size=(25, 1)), sg.DropDown(menu_dropdown_habitacao, size=(20), key=('tipo_habitacao'))],
+            [sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))]
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        informacoes_cadastro_edicao = self.validacoes_cadastro()
+        return informacoes_cadastro_edicao
+
+    def mostra_sucesso_edicao(self, cpf):
+        sg.popup(f'Adotante com cpf {cpf} editado com sucesso!')

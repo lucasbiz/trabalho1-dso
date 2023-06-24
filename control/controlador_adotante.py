@@ -4,7 +4,7 @@ from model.adotante import Adotante
 class ControladorAdotante():
 
     def __init__(self, controlador_adocao):
-        self.__adotantes = {11111111111: Adotante(11237723981, 'Lucas adotante', '02/05/00', 'Rua Antonio Costa', ['casa', 'media']), 11122233344: Adotante(11111111111, 'Lucas adotante 2', '02/05/00', 'Rua Antonio Costa', ['apartamento', 'pequeno'])}
+        self.__adotantes = {11111111111: Adotante(11111111111, 'Lucas adotante', '02/05/2000', 'Rua Antonio Costa', ['casa', 'media']), 11122233344: Adotante(11111111111, 'Lucas adotante 2', '02/05/00', 'Rua Antonio Costa', ['apartamento', 'pequeno'])}
         self.__controlador_adocao = controlador_adocao
         self.__tela_adotante = TelaAdotante()
 
@@ -22,7 +22,6 @@ class ControladorAdotante():
 
         elif isinstance(opcao_escolhida, list):
 
-            print(self.__controlador_adocao.verificar_doadores())
             if opcao_escolhida[0] not in self.__adotantes and opcao_escolhida[0] not in self.__controlador_adocao.verificar_doadores():
                 adotante = Adotante(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3], opcao_escolhida[4])
                 self.__adotantes[opcao_escolhida[0]] = adotante
@@ -68,7 +67,8 @@ class ControladorAdotante():
             self.__tela_adotante.cpf_nao_encontrado()
 
     def remover_adotante(self):
-        cpf_informado = self.__tela_adotante.informe_cpf_remocao()
+
+        cpf_informado = self.__tela_adotante.informe_cpf()
 
         if cpf_informado == 1:
             return 1
@@ -81,3 +81,40 @@ class ControladorAdotante():
         else:
             self.__tela_adotante.cpf_nao_encontrado(cpf_informado)
             return 1
+
+    def editar_adotante(self):
+        cpf_informado = self.__tela_adotante.informe_cpf()
+
+        if cpf_informado == 1:
+            return 1
+
+        elif cpf_informado in self.__adotantes:
+            adotante_editado = self.__tela_adotante.tela_edicao_adotante(self.__adotantes[cpf_informado])
+            self.__adotantes.pop(cpf_informado)
+
+            if adotante_editado == 1:
+                return 1   
+
+            elif adotante_editado[0] not in self.__controlador_adocao.verificar_doadores():
+                adotante = Adotante(adotante_editado[0], adotante_editado[1], adotante_editado[2], adotante_editado[3], adotante_editado[4])
+                self.__adotantes[cpf_informado] = adotante
+                self.__tela_adotante.mostra_sucesso_edicao(adotante_editado[0])
+                return 0
+
+            elif adotante_editado[0] in self.__adotantes:
+                self.__tela_adotante.cpf_ja_cadastrado(adotante_editado[0])
+                self.__controlador_adocao.mostra_tela_adocao()
+
+            elif adotante_editado[0] in self.__controlador_adocao.verificar_doadores():
+                self.__tela_adotante.cpf_ja_cadastrado_doador(adotante_editado[0])
+                self.__controlador_adocao.mostra_tela_adocao()  
+   
+        else:
+            self.__tela_adotante.cpf_nao_encontrado(cpf_informado)
+            return 1
+
+
+
+
+
+          
