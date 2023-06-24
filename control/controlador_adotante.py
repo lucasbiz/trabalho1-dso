@@ -4,7 +4,7 @@ from model.adotante import Adotante
 class ControladorAdotante():
 
     def __init__(self, controlador_adocao):
-        self.__adotantes = {11111111111: Adotante(11111111111, 'Lucas adotante', '02/05/2000', 'Rua Antonio Costa', ['casa', 'media']), 11122233344: Adotante(11111111111, 'Lucas adotante 2', '02/05/00', 'Rua Antonio Costa', ['apartamento', 'pequeno'])}
+        self.__adotantes = {11111111111: Adotante(11111111111, 'Lucas adotante', '02/05/2000', 'Rua Antonio Costa', 'Casa média'), 22222222222: Adotante(22222222222, 'Lucas adotante 2', '02/05/00', 'Avenida Madre Benvenuta', 'Apartamento pequeno')}
         self.__controlador_adocao = controlador_adocao
         self.__tela_adotante = TelaAdotante()
 

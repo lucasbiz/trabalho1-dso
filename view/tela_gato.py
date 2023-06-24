@@ -1,4 +1,4 @@
-
+from PySimpleGUI import PySimpleGUI as sg
 
 class TelaGato:
 
@@ -49,21 +49,40 @@ class TelaGato:
     def mostra_gatos(self, gato):
         print(gato)
 
-    def pegar_numero(self):
-        try:
-            print('----------------- Adoção ---------------')
-            numero = input('Informe o número do chip do gato que deseja adotar: ')
-            print('----------------- Adoção ---------------')
+    def pegar_gato_pelo_numero(self):
 
-        except Exception:
-            print('--------------- Aviso ----------------')
-            print('Número do chip inválido!')
-            print('--------------- Aviso ----------------')
-            return 1
+        sg.theme('SandyBeach')
+        layout = [[sg.Text(f'Informe o número do chip do gato desejado: '), sg.InputText(key='numero_chip', size=(15,1))]]
+        layout.append([sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))])
+
         
-        return int(numero)
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        numero_correto = False
+
+        while numero_correto == False:
+
+            button, values = self.__window.Read()
+            if button == 'Confirmar':
+                # VALIDACAO NUMERO CHIP
+                try:
+                    numero = int(values['numero_chip'])
+                    numero_correto = True
+                    sg.popup('Gato encontrado! Prosseguindo adoção...')
+                    self.__window.close()
+                    return numero
+
+                except Exception:
+                    sg.popup('NUMERO DO CHIP INVÁLIDO')
+                    self.__window['numero_chip'].Update('')
+                    return 1
+                
+
+            if button == 'Voltar':
+                numero_correto = True
+                self.__window.close()
+                return 1
+
 
     def gato_nao_encontrado(self):
-        print('--------------- Aviso ----------------')
-        print('Gato não encontrado!')
-        print('--------------- Aviso ----------------')
+        sg.popup('GATO NÃO ENCONTRADO')

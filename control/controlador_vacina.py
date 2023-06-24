@@ -19,5 +19,6 @@ class ControladorVacina():
         return opcao
 
     def vacinar(self, vacina, data_aplicacao):
+
         aplicacao_vacina = Vacina(vacina, data_aplicacao)
         return aplicacao_vacina

@@ -1,12 +1,14 @@
 from view.tela_cachorro import TelaCachorro
 from model.cachorro import Cachorro
 from control.controlador_vacina import ControladorVacina
+from model.vacina import Vacina
+
 
 
 class ControladorCachorro():
 
     def __init__(self, controlador_doacao):
-        self.__cachorros = {321: Cachorro(321, 'Chica', 'Sem raça', [], 2), 456: Cachorro(456, 'Cachorro grande', 'Sem raça', [], 3)}
+        self.__cachorros = {111: Cachorro(111, 'Cachorro médio', 'Sem raça', [Vacina('Raiva', '12/5/2022')], 2), 222: Cachorro(222, 'Cachorro grande', 'Sem raça', [], 3)}
         self.__controlador_doacao = controlador_doacao
         self.__controlador_vacina = ControladorVacina()
         self.__tela_cachorro = TelaCachorro()
@@ -45,6 +47,7 @@ class ControladorCachorro():
         return lista_vacinas
 
     def verificar_vacinas(self, numero_chip):
+
         if len(self.__cachorros[numero_chip].historico_vacinacao) == 3:
             return 2
         elif len(self.__cachorros[numero_chip].historico_vacinacao) != 3:
@@ -63,19 +66,30 @@ class ControladorCachorro():
     def finalizar_adocao(self, identificador):
         self.__cachorros.pop(identificador)
 
-    def vacinar_cachorro_completo(self, cachorro, data):
-        cachorro.historico_vacinacao = []
-        self.__controlador_vacina.vacinar('Raiva', data)
-        self.__controlador_vacina.vacinar('Leptospirose', data)
-        self.__controlador_vacina.vacinar('Hepatite infecciosa', data)
+    def vacinar_cachorro_completo(self, cachorro, data_atual):
+
+        lista_nomes_vacinas_cachorro = []
+        lista_nomes_vacinas_completa = ['Raiva', 'Leptospirose', 'Hepatite infecciosa',]
+
+        for vacina in cachorro.historico_vacinacao:
+            lista_nomes_vacinas_cachorro.append(vacina.nome_vacina) #lista com os nomes das vacinas que o cachorro JÁ POSSUI
+
+        for vac in lista_nomes_vacinas_completa:
+            if vac not in lista_nomes_vacinas_cachorro:
+                self.__controlador_vacina.vacinar(vac, data_atual)
+                cachorro.historico_vacinacao.append(vac)
+
     
     def pegar_cachorro_pelo_numero(self):
 
-        numero_chip = self.__tela_cachorro.pegar_numero()
+        numero_chip = self.__tela_cachorro.pegar_cachorro_pelo_numero()
+
         if numero_chip in self.__cachorros:
             return self.__cachorros[numero_chip]
+
         elif numero_chip == 1:
             return 1
+
         elif numero_chip not in self.__cachorros:
             self.__tela_cachorro.cachorro_nao_encontrado()
             return 1

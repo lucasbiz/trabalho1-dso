@@ -1,12 +1,13 @@
 from view.tela_gato import TelaGato
 from model.gato import Gato
 from control.controlador_vacina import ControladorVacina
+from datetime import date
 
 
 class ControladorGato():
 
     def __init__(self, controlador_doacao):
-        self.__gatos = {123: Gato(123, 'Thomas', 'Frajola', [])}
+        self.__gatos = {111: Gato(111, 'Thomas', 'Frajola', [])}
         self.__controlador_doacao = controlador_doacao
         self.__controlador_vacina = ControladorVacina()
         self.__tela_gato = TelaGato()
@@ -43,17 +44,25 @@ class ControladorGato():
     def finalizar_adocao(self, identificador):
         self.__gatos.pop(identificador)
     
-    def verificar_vacinas(self, animal):
-        if len(self.__gatos[animal].historico_vacinacao()) == 3:
+    def verificar_vacinas(self, numero_chip):
+
+        if len(self.__gatos[numero_chip].historico_vacinacao) == 3:
             return 2
-        elif len(self.__gatos[animal].historico_vacinacao()) != 3:
+        elif len(self.__gatos[numero_chip].historico_vacinacao) != 3:
             return 1
     
-    def vacinar_gato_completo(self, gato, data):
-        gato.historico_vacinacao = []
-        self.__controlador_vacina.vacinar('Raiva', data)
-        self.__controlador_vacina.vacinar('Leptospirose', data)
-        self.__controlador_vacina.vacinar('Hepatite infecciosa', data)
+    def vacinar_gato_completo(self, gato, data_atual):
+
+        lista_nomes_vacinas_gato = []
+        lista_nomes_vacinas_completa = ['Raiva', 'Leptospirose', 'Hepatite infecciosa',]
+
+        for vacina in gato.historico_vacinacao:
+            lista_nomes_vacinas_gato.append(vacina.nome_vacina) #lista com os nomes das vacinas que o gato JÁ POSSUI
+
+        for vac in lista_nomes_vacinas_completa:
+            if vac not in lista_nomes_vacinas_gato:
+                self.__controlador_vacina.vacinar(vac, data_atual)
+                gato.historico_vacinacao.append(vac)
 
     def listar_gatos(self):
 
@@ -68,7 +77,7 @@ class ControladorGato():
 
     def pegar_gato_pelo_numero(self):
 
-        numero_chip = self.__tela_gato.pegar_numero()
+        numero_chip = self.__tela_gato.pegar_gato_pelo_numero()
 
         if numero_chip in self.__gatos:
             return self.__gatos[numero_chip]

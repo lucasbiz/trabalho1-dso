@@ -119,89 +119,71 @@ class TelaAdocao:
 
         if button == 'Cachorro':
             self.close()
-            return 3
- 
-
-        # print('---------------- Adoção ---------------')
-        # print('Bem vindo ao sistema de adoção, vamos primeiro realizar o cadastro do seu bichinho')
-        # print('O animal que será adotado é:')
-        # print('1 - Gato')
-        # print('2 - Cachorro')
-        # print('3 - Voltar')
-        # opcao = input('Informe a opção escolhida: ')
-
-        # while opcao not in ['1','2','3']:
-        #     print('---------------- Adoção ---------------')
-        #     print('Opção inválida! Digite o número da opção novamente: ')
-        #     print('O animal que será adotado é:')
-        #     print('1 - Gato')
-        #     print('2 - Cachorro')
-        #     print('3 - Voltar')
-        #     opcao = input('Informe a opção escolhida: ')
-
-        # return int(opcao)    
+            return 3 
     
     def finalizar_adocao(self):
-        print('---------------- Adoção ---------------')
-        data = date.today()
-        data_em_texto = '{}/{}/{}'.format(data.day, data.month, data.year)
-        while len(data) != 8:
-            print('--------------- Aviso -----------------')
-            data = input('Data inválida! Informe a data da adoção (dd/mm/aa): ')
-            print('--------------- Aviso -----------------')
-        print('Assinar termo de responsabilidade: ')
-        print('1 - Assinar')
-        print('2 - Não assinar')
-        assinar_termo = input('Escolha uma opção ')
-        while assinar_termo not in ['1','2']:
-            print('Opção inválida!')
-            print('Assinar termo de responsabilidade: ')
-            print('1 - Assinar')
-            print('2 - Não assinar')
-            assinar_termo = input('Escolha uma opção ')
 
-        print('---------------- Adoção ---------------')
-        return [data, int(assinar_termo)]
+        data = date.today()
+        data_adocao = '{}/{}/{}'.format(data.day, data.month, data.year)
+
+        sg.theme('SandyBeach')
+
+        layout = [
+            [sg.Text('Para adotar um animalzinho, é necessário assinar o termo de responsabilidade.')],
+            [sg.Text('Deseja assinar o termo?')],
+            [sg.Button('Assinar termo', size=(20,1))],
+            [sg.Button('Não assinar (cancelará a adoção)', size=(20,2))],
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Não assinar (cancelará a adoção)':
+            sg.popup('Adoção Cancelada! Retornando a área de adoção.')
+            self.close()
+            return 1
+
+        if button == 'Assinar termo':
+            self.close()
+            return data_adocao
 
     def sucesso_adocao(self, animal):
-        print('--------------- Aviso ----------------')
-        print(f'{animal} adotado com sucesso!')
-        print('--------------- Aviso ----------------')
+        sg.popup(f'{animal} adotado com sucesso!')
     
-    def adocao_cancelada_termo():
-        print('Não é possivel adotar um animal sem assinar o termo, adoção cancelada!')
+    def erro_falta_vacinas(self, vacinas):
 
-    def erro_falta_vacinas(self,):
+        sg.theme('SandyBeach')
 
-        print('--------------- Aviso ----------------')
-        print('O animal escolhido não possui as vacinas necessárias! Deseja vaciná-lo com as faltantes?')
-        print('1 - SIM')
-        print('2 - NÃO')
-        opcao = input('Informe sua escolha: ')
-        print('--------------- Aviso ----------------')
+        layout = [
+            [sg.Text('Para adotar um animalzinho, é necessário que ele esteja com essas vacinas em dia: ')],
+            [sg.Text('Raiva')],
+            [sg.Text('Leptospirose')],
+            [sg.Text('Hepatite infecciosa')],
+            [sg.Text('Atualmente, ele possui apenas essas vacinas: ')]]
 
-        while opcao not in ['1','2']:
-            print('--------------- Aviso ----------------')
-            print('Opção inválida! Informe novamente.')
-            print('O animal escolhido não possui as vacinas necessárias! Deseja vaciná-lo com as faltantes?')
-            print('1 - SIM')
-            print('2 - NÃO')
-            opcao = input('Informe sua escolha: ')
-            print('--------------- Aviso ----------------')
-        
-        return int(opcao)
+        for vacina in vacinas:
+            layout.append([sg.Text(vacina.nome_vacina)])
 
-    def cancelar_adocao_falta_vacinas(self):
-        print('--------------- Aviso ----------------')
-        print('Um animal precisa de todas as 3 vacinas para poder ser adotado! Adoção cancelada!')
-        print('--------------- Aviso ----------------')
+        layout.append([sg.Text('Deseja vaciná-lo(a) com as vacinas faltantes?')])
+        layout.append([sg.Button('Sim', size=(15,2)), sg.Button('Não (cancelará a adoção)', size=(15,2))])
+
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Não (cancelará a adoção)':
+            sg.popup('Adoção Cancelada! Retornando a área de adoção.')
+            self.close()
+            return 1
+
+        if button == 'Sim':
+            self.close()
+            return 2
 
     def erro_tamanho_apartamento(self):
-        print('--------------- Aviso ----------------')
-        print('Um cachorro de porte grande não pode ser adotado por um Adotante que mora em um apartamento pequeno! Retornando ao menu de adoções...')
-        print('--------------- Aviso ----------------')
-    
+        sg.popup('Um cachorro de porte grande não pode ser adotado por um Adotante que mora em um apartamento pequeno!\nRetornando ao menu de adoções...')
+
     def sem_registro_adocoes(self):
-        print('--------------- Aviso ----------------')
-        print('Ainda não existe nenhuma adoção registrada!')
-        print('--------------- Aviso ----------------')
+        sg.popup('Ainda não existe nenhuma adoção registrada!')
