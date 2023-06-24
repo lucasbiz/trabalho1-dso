@@ -89,15 +89,7 @@ class TelaAdotante:
         # FIM VALIDAÇÕES, RETORNA LISTA DE INFORMAÇÕES
         self.close()
         return informacoes_cadastro
-    
-    def mostra_sucesso_cadastro(self, cpf):
-        sg.popup(f'Adotante com CPF {cpf} cadastrado com sucesso!')
 
-    # fecha a tela 
-    def close(self):
-        self.__window.Close()
-
-    # Tela de cadastro de novo adotante
     def iniciar_tela(self):
 
         sg.theme('SandyBeach')
@@ -116,6 +108,16 @@ class TelaAdotante:
         ]
 
         self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+    def mostra_sucesso_cadastro(self, cpf):
+        sg.popup(f'Adotante com CPF {cpf} cadastrado com sucesso!')
+
+    # fecha a tela 
+    def close(self):
+        self.__window.Close()
+
+    # Tela de cadastro de novo adotante
+
 
 # ==================== FIM CADASTRO ====================
 

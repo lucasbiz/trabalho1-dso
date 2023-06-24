@@ -81,7 +81,7 @@ class ControladorAdocao():
 
         # se estiver, inicia a doação perguntando se o adotante quer adotar um gato ou cachorro
         if cpf in lista_cpfs_adotantes:
-            self.__tela_adocao.iniando_doacao()
+            self.__tela_adocao.iniciando_adocao()
             opcao_escolhida = self.__tela_adocao.gato_ou_cachorro()
 
             if opcao_escolhida == 1:

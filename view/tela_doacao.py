@@ -1,111 +1,185 @@
-
+from PySimpleGUI import PySimpleGUI as sg
+from datetime import date
 
 class TelaDoacao:
 
-    def tela_opcoes_consulta(self):
-        print('--------------- Consultar doações ---------------')
-        print('Escolha o que deseja fazer: ')
-        print('1 - Ver todo o registro de doaçoes')
-        print('2 - Voltar')
-        opcao = input('Escolha uma opção: ')
-
-        while opcao not in ['1','2']:
-            print('--------------- Consultar doações ---------------')
-            print('Escolha inválida!')
-            print('--------------- Consultar doações ---------------')
-            print('Escolha o que deseja fazer: ')
-            print('1 - Ver todo o registro de doaçoes')
-            print('2 - Voltar')
-
-            opcao = input('Escolha uma opção: ')   
-         
-        return int(opcao)
-
     def tela_opcoes_doacao(self):
-        print('--------------- Doações ---------------')
-        print('Escolha o que deseja fazer: ')
-        print('1 - Doar um animal')
-        print('2 - Cadastrar um doador')
-        print('3 - Voltar')
-        opcao = input('Escolha uma opção: ')
 
-        while opcao not in ['1','2','3']:
-            print('--------------- Doações ---------------')
-            print('Escolha inválida!')
-            print('--------------- Doações ---------------')
-            print('Escolha o que deseja fazer: ')
-            print('1 - Doar um animal')
-            print('2 - Cadastrar um doador')
-            print('3 - Voltar')
+        self.iniciar_tela()
+        button, values = self.__window.Read()
+        opcao = 0
+        if button == 'Doar um animal':
+            opcao = 1
+        if button == 'Listar Doações':
+            opcao = 2
+        if button == 'Cadastrar um Doador':
+            opcao = 3
+        if button == 'Editar um Doador':
+            opcao = 4
+        if button == 'Excluir um Doador':
+            opcao = 5
+        if button == 'Listar os Doadores cadastrados':
+            opcao = 6
+        if button == 'Voltar':
+            opcao = 7
+        self.close()
+        return opcao
 
-            opcao = input('Escolha uma opção: ')   
+    def close(self):
+        self.__window.Close()
+
+    def iniciar_tela(self):
+
+        sg.theme('SandyBeach')
+        layout = [
+            [sg.Text('Menu de doação', size=(50, 1))],
+            [sg.Text('O que deseja fazer?')],
+            [sg.Button('Doar um animal', size=(20, 1))],
+            [sg.Button('Listar Doações', size=(20, 1))],
+            [sg.Button('Cadastrar um Doador', size=(20, 1))],
+            [sg.Button('Editar um Doador', size=(20, 1))],
+            [sg.Button('Excluir um Doador', size=(20, 1))],
+            [sg.Button('Listar os Doadores cadastrados', size=(20, 2))],
+            [sg.Button('Voltar', size=(20, 1))]
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
          
-        return int(opcao)
+    # ================================
 
-    def mostra_doacoes(self,doacao):
-        print(doacao)
+    def mostra_doacoes(self, doacoes):
 
-    def pedir_cpf(self):
-        cpf = input('Informe o CPF do doador: ')
+        sg.theme('SandyBeach')
+        layout = [[sg.Text('Data da doação', size=(15, 1)),sg.Text('Nome do Doador', size=(20, 1)), sg.Text('Numero do chip do animal', size=(20, 1)), sg.Text('Nome do animal', size=(15, 1))]]
+        for doacao in doacoes:
+            layout.append([sg.Text(doacao.data, size=(15, 1)), sg.Text(doacao.adotante.nome, size=(20, 1)), sg.Text(doacao.animal.numero_chip, size=(20, 1)), sg.Text(doacao.animal.nome, size=(15, 1))])
+        layout.append([sg.Button('Voltar', size=(20, 1))])
+
         
-        try:
-            return int(cpf)
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
 
-        except Exception:
+        button, values = self.__window.Read()
+        if button == 'Voltar':
+            self.close()
             return 1
 
-    def cpf_nao_cadastrado(self):
-        print('Doador não cadastrado! Para realizar a doação é necessário primeiro cadastrar o doador.')
-        print('Deseja cadastrar um doador?')
-        print('1 - SIM')
-        print('2 - NÃO')
-        opcao = input('Informe o número da opção escolhida: ')
+    def informe_cpf(self):
 
-        while opcao not in ['1', '2']:
-            print('Opção inválida! Informe apenas o número da opção escolhida.')
-            print('Deseja cadastrar um doador?')
-            print('1 - SIM')
-            print('2 - NÃO')
-            opcao = input('Informe o número da opcao escolhida: ')
-        return int(opcao)
+        sg.theme('SandyBeach')
+        layout = [[sg.Text(f'Informe o CPF do Doador: ', size=(20, 1)), sg.InputText(key='cpf', size=(15,1))]]
+        layout.append([sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        cpf_correto = False
+
+        while cpf_correto == False:
+
+            button, values = self.__window.Read()
+            if button == 'Confirmar':
+                # VALIDACAO CPF
+                if len(values['cpf']) != 11:
+                    sg.popup('CPF INVÁLIDO')
+                    self.__window['cpf'].Update('')
+                else:
+                    try:
+                        cpf = int(values['cpf'])
+                        cpf_correto = True
+                        self.close()
+                        return cpf
+
+                    except Exception:
+                        sg.popup('CPF INVÁLIDO')
+                        self.__window['cpf'].Update('')
+
+            if button == 'Voltar':
+                cpf_correto = True
+                self.close()
+                return 1
+
+
+    def cpf_nao_cadastrado(self, cpf):
+
+        sg.theme('SandyBeach')
+
+        layout = [
+            [sg.Text(f'Doador com CPF {cpf} não cadastrado! Para realizar a adoção é necessário primeiro cadastrar o Doador')],
+            [sg.Text('Deseja realizar um cadastro de doador?')],
+            [sg.Button('Sim', size=(15,1)), sg.Button('Não', size=(15,1))]
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Não':
+            self.close()
+            return 1
+
+        if button == 'Sim':
+            self.close()
+            return cpf
 
     def gato_ou_cachorro(self):
-        print('---------------- Doação ---------------')
-        print('Bem vindo ao sistema de doação, vamos primeiro realizar o cadastro do seu bichinho')
-        print('O animal que será doado é:')
-        print('1 - Gato')
-        print('2 - Cachorro')
-        print('3 - Voltar')
-        opcao = input('Informe a opção escolhida: ')
+ 
+        sg.theme('SandyBeach')
 
-        while opcao not in ['1','2','3']:
-            print('---------------- Doação ---------------')
-            print('Opção inválida! Digite o número da opção novamente: ')
-            print('O animal que será doado é:')
-            print('1 - Gato')
-            print('2 - Cachorro')
-            print('3 - Voltar')
-            opcao = input('Informe a opção escolhida: ')
+        layout = [
+            [sg.Text('Bem vindo ao sistema de doação, deseja doar um gato ou um cachorro?')],
+            [sg.Button('Gato', size=(15,1))],
+            [sg.Button('Cachorro', size=(15,1))],
+            [sg.Button('Voltar', size=(15,1))]
+        ]
 
-        return int(opcao)    
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Voltar':
+            self.close()
+            return 1
+
+        if button == 'Gato':
+            self.close()
+            return 2
+
+        if button == 'Cachorro':
+            self.close()
+            return 3 
     
-    def finalizar_doacao(self):
-        print('---------------- Doação ---------------')
-        data = input('Informe a data da doação (dd/mm/aa): ')
-        while len(data) != 8:
-            print('--------------- Aviso -----------------')
-            data = input('Data inválida! Informe a data da doação (dd/mm/aa): ')
-            print('--------------- Aviso -----------------')
-        motivo = input('Informe o motivo da doação: ')
-        print('---------------- Doação ---------------')
-        return [data, motivo]
+    def finalizar_doacao(self): # pegar data automaticamente
+
+        data = date.today()
+        data_doacao = '{}/{}/{}'.format(data.day, data.month, data.year)
+
+        sg.theme('SandyBeach')
+
+        layout = [
+            [sg.Text('Para doar um animalzinho, é necessário assinar o termo de responsabilidade.')],
+            [sg.Text('Deseja assinar o termo?')],
+            [sg.Button('Assinar termo', size=(20,1))],
+            [sg.Button('Não assinar (cancelará a adoção)', size=(20,2))],
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Não assinar (cancelará a adoção)':
+            sg.popup('Adoção Cancelada! Retornando a área de adoção.')
+            self.close()
+            return 1
+
+        if button == 'Assinar termo':
+            self.close()
+            return data_adocao
 
     def sucesso_doacao(self, animal):
-        print('--------------- Aviso ----------------')
-        print(f'{animal.nome} doado com sucesso!')
-        print('--------------- Aviso ----------------')
+        sg.popup(f'{animal.nome} doado com sucesso!')
 
     def sem_registro_doacoes(self):
-        print('--------------- Aviso ----------------')
-        print('Ainda não existe nenhuma doação registrada!')
-        print('--------------- Aviso ----------------')
+        sg.popup('Ainda não existe nenhuma doação registrada!')
+
+    def iniciando_doacao(self):
+        sg.popup('Cadastro de Doador encontrado, iniciando doação!')

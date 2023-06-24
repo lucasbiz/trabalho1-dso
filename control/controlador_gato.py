@@ -14,8 +14,10 @@ class ControladorGato():
 
     def cadastra_gato(self):
         opcao_escolhida = self.__tela_gato.mostra_tela_cadastro()
+
         if opcao_escolhida == 1:
             return 1
+
         elif isinstance(opcao_escolhida, list):
             if opcao_escolhida[0] not in self.__gatos:
                 vacinas = self.vacinacao()

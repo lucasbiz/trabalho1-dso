@@ -91,8 +91,8 @@ class TelaAdocao:
             self.close()
             return cpf
 
-    def iniando_doacao(self):
-        sg.popup('Cadastro de Adotante encontrado, iniciando doação!')
+    def iniciando_adocao(self):
+        sg.popup('Cadastro de Adotante encontrado, iniciando adoção!')
 
     def gato_ou_cachorro(self):
  
