@@ -61,36 +61,35 @@ class ControladorAdocao():
     # INICIANDO ADOÇÃO
 
     def adotar(self):
-        cpf = self.__tela_adocao.pedir_cpf()
+        cpf = self.__controlador_adotante.informe_cpf()
+        lista_cpfs_adotantes = self.__controlador_adotante.pegar_cpf_adotantes()
+
         if cpf == 1:
             self.mostra_tela_adocao()
 
         else:
-            lista_adotantes_cadastrados = self.__controlador_adotante.pegar_adotantes()
-
-            if cpf not in lista_adotantes_cadastrados:
-                opcao = self.__tela_adocao.cpf_nao_cadastrado()
+            if cpf not in lista_cpfs_adotantes:
+                opcao = self.__tela_adocao.cpf_nao_cadastrado(cpf)
 
                 if opcao == 1:
-                    self.cadastra_adotante()
-                    self.adotar()
-
-                elif opcao == 2:
                     self.mostra_tela_adocao()
+
+                else:
+                    self.cadastra_adotante()
     
-        if cpf in lista_adotantes_cadastrados:
-            # print('Cadastro de adotante encontrado, iniciando doação!')
-            # mensagem de cadastro encontrado e iniciar doação
+        if cpf in lista_cpfs_adotantes:
+            self.__tela_adocao.iniando_doacao()
             opcao_escolhida = self.__tela_adocao.gato_ou_cachorro()
 
             if opcao_escolhida == 1:
-                self.adotar_gato(cpf)
+                self.mostra_tela_adocao()
 
             elif opcao_escolhida == 2:
-                self.adotar_cachorro(cpf)
+                self.adotar_gato(cpf)
 
             elif opcao_escolhida == 3:
-                self.mostra_tela_adocao()
+                self.adotar_cachorro(cpf)
+
 
     def adotar_cachorro(self, cpf):
         cachorro = self.__controlador_cachorro.pegar_cachorro_pelo_numero()

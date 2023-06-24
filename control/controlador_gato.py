@@ -56,8 +56,10 @@ class ControladorGato():
         self.__controlador_vacina.vacinar('Hepatite infecciosa', data)
 
     def listar_gatos(self):
+
         if self.__gatos == {}:
             self.__tela_gato.sem_gatos()
+
         else:
             for gato_chave in self.__gatos:
                 gato = self.__gatos[gato_chave]
@@ -65,11 +67,15 @@ class ControladorGato():
                 self.__tela_gato.mostra_gatos(gato_infos)
 
     def pegar_gato_pelo_numero(self):
+
         numero_chip = self.__tela_gato.pegar_numero()
+
         if numero_chip in self.__gatos:
             return self.__gatos[numero_chip]
+
         elif numero_chip == 1:
             return 1
+
         elif numero_chip not in self.__gatos:
             self.__tela_gato.gato_nao_encontrado()
             return 1

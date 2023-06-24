@@ -50,12 +50,11 @@ class ControladorAdotante():
                 return 1
 
 
-    def pegar_adotantes(self):
+    def pegar_cpf_adotantes(self):
         chaves_adotantes = []
 
         for adotante_chave in self.__adotantes:
             chaves_adotantes.append(adotante_chave)
-        print(chaves_adotantes)
 
         return chaves_adotantes
     
@@ -68,7 +67,7 @@ class ControladorAdotante():
 
     def remover_adotante(self):
 
-        cpf_informado = self.__tela_adotante.informe_cpf()
+        cpf_informado = self.informe_cpf()
 
         if cpf_informado == 1:
             return 1
@@ -83,7 +82,7 @@ class ControladorAdotante():
             return 1
 
     def editar_adotante(self):
-        cpf_informado = self.__tela_adotante.informe_cpf()
+        cpf_informado = self.informe_cpf()
 
         if cpf_informado == 1:
             return 1
@@ -113,6 +112,12 @@ class ControladorAdotante():
             self.__tela_adotante.cpf_nao_encontrado(cpf_informado)
             return 1
 
+
+    def informe_cpf(self):
+
+        cpf_informado = self.__tela_adotante.informe_cpf()
+
+        return cpf_informado
 
 
 

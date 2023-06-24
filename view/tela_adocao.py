@@ -69,49 +69,77 @@ class TelaAdocao:
 
     # ================================
 
-    def pedir_cpf(self):
-        cpf = input('Informe o CPF do Adotante: ')
-        
-        try:
-            return int(cpf)
+    def cpf_nao_cadastrado(self, cpf):
 
-        except Exception:
+        sg.theme('SandyBeach')
+
+        layout = [
+            [sg.Text(f'Adotante com CPF {cpf} não cadastrado! Para realizar a adoção é necessário primeiro cadastrar o Adotante')],
+            [sg.Text('Deseja realizar um cadastro de adotante??')],
+            [sg.Button('Sim', size=(15,1)), sg.Button('Não', size=(15,1))]
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Não':
+            self.close()
             return 1
 
-    def cpf_nao_cadastrado(self):
-        print('Adotante não cadastrado! Para realizar a adoção é necessário primeiro cadastrar o Adotante.')
-        print('Deseja cadastrar um Adotante?')
-        print('1 - SIM')
-        print('2 - NÃO')
-        opcao = input('Informe o número da opção escolhida: ')
+        if button == 'Sim':
+            self.close()
+            return cpf
 
-        while opcao not in ['1', '2']:
-            print('Opção inválida! Informe apenas o número da opção escolhida.')
-            print('Deseja cadastrar um Adotante?')
-            print('1 - SIM')
-            print('2 - NÃO')
-            opcao = input('Informe o número da opcao escolhida: ')
-        return int(opcao)
+    def iniando_doacao(self):
+        sg.popup('Cadastro de Adotante encontrado, iniciando doação!')
 
     def gato_ou_cachorro(self):
-        print('---------------- Adoção ---------------')
-        print('Bem vindo ao sistema de adoção, vamos primeiro realizar o cadastro do seu bichinho')
-        print('O animal que será adotado é:')
-        print('1 - Gato')
-        print('2 - Cachorro')
-        print('3 - Voltar')
-        opcao = input('Informe a opção escolhida: ')
+ 
+        sg.theme('SandyBeach')
 
-        while opcao not in ['1','2','3']:
-            print('---------------- Adoção ---------------')
-            print('Opção inválida! Digite o número da opção novamente: ')
-            print('O animal que será adotado é:')
-            print('1 - Gato')
-            print('2 - Cachorro')
-            print('3 - Voltar')
-            opcao = input('Informe a opção escolhida: ')
+        layout = [
+            [sg.Text('Bem vindo ao sistema de adoção, deseja adotar um gato ou um cachorro?')],
+            [sg.Button('Gato', size=(15,1))],
+            [sg.Button('Cachorro', size=(15,1))],
+            [sg.Button('Voltar', size=(15,1))]
+        ]
 
-        return int(opcao)    
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+
+        if button == 'Voltar':
+            self.close()
+            return 1
+
+        if button == 'Gato':
+            self.close()
+            return 2
+
+        if button == 'Cachorro':
+            self.close()
+            return 3
+ 
+
+        # print('---------------- Adoção ---------------')
+        # print('Bem vindo ao sistema de adoção, vamos primeiro realizar o cadastro do seu bichinho')
+        # print('O animal que será adotado é:')
+        # print('1 - Gato')
+        # print('2 - Cachorro')
+        # print('3 - Voltar')
+        # opcao = input('Informe a opção escolhida: ')
+
+        # while opcao not in ['1','2','3']:
+        #     print('---------------- Adoção ---------------')
+        #     print('Opção inválida! Digite o número da opção novamente: ')
+        #     print('O animal que será adotado é:')
+        #     print('1 - Gato')
+        #     print('2 - Cachorro')
+        #     print('3 - Voltar')
+        #     opcao = input('Informe a opção escolhida: ')
+
+        # return int(opcao)    
     
     def finalizar_adocao(self):
         print('---------------- Adoção ---------------')

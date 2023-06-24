@@ -183,6 +183,7 @@ class TelaAdotante:
                 
 
             if button == 'Voltar':
+                cpf_correto = True
                 self.close()
                 return 1
 
