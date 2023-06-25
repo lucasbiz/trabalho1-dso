@@ -50,6 +50,8 @@ class TelaGato:
                         sg.popup('RAÇA INVÁLIDA')
                         self.__window['raca'].Update('')
 
+                # VALIDACAO VACINAS
+
                 if values['vacina_raiva'] == True:
 
                     if len(values['data_raiva']) == 10:
@@ -97,11 +99,11 @@ class TelaGato:
             [sg.Text('Nome: ', size=(25, 1)), sg.InputText(key='nome', size=(20, 1))],
             [sg.Text('Raça', size=(25, 1)), sg.InputText(key='raca', size=(20, 1))],
             [sg.Text('Histórico de Vacinação: ', size=(25, 1))],
-            [sg.Text('Selecione as vacinas que o animal já possui\ne digite as datas de aplicação: ', size=(25, 1))],
+            [sg.Text('Selecione as vacinas que o animal já possui e digite as datas de aplicação: ', size=(25, 1))],
             [sg.Text('Vacina', size=(30, 1)), sg.Text('Data (dd/mm/aaaa)', size=(15, 1))],
-            [sg.Checkbox('Raiva', key='vacina_raiva', size=(30, 1)), sg.Text('Data: ', size=(15,1), key='data_raiva'), sg.InputText(size=(15, 1))],
-            [sg.Checkbox('Leptospirose', key='vacina_leptospirose', size=(30, 1)), sg.Text('Data: ', size=(15,1), key='data_leptospirose'), sg.InputText(size=(15, 1))],
-            [sg.Checkbox('Hepatite infecciosa', key='vacina_hepatite', size=(30, 1)), sg.Text('Data: ', size=(15,1), key='data_hepatite'), sg.InputText(size=(15, 1))],
+            [sg.Checkbox('Raiva', key='vacina_raiva', size=(27, 1)), sg.Text('Data: '), sg.InputText(key='data_raiva', size=(15, 1))],
+            [sg.Checkbox('Leptospirose', key='vacina_leptospirose', size=(27, 1)), sg.Text('Data: '), sg.InputText(size=(15, 1), key='data_leptospirose')],
+            [sg.Checkbox('Hepatite infecciosa', key='vacina_hepatite', size=(27, 1)), sg.Text('Data: '), sg.InputText(size=(15, 1), key='data_hepatite')],
             [sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))]
         ]
 
@@ -113,42 +115,6 @@ class TelaGato:
     # fecha a tela 
     def close(self):
         self.__window.Close()
-
-    # Tela de cadastro de novo gato
-
-
-# ==================== FIM CADASTRO ==================== 
-   
-    # def mostra_tela_cadastro(self):
-    #     print('--------------- Cadastrar gato ---------------')
-    #     print('Informe seus dados para realizar o cadastro!: ')
-
-    #     try:
-    #         numero_chip = int(input('Digite o NÚMERO DO CHIP do gato ou 1 para cancelar: '))
-    #         if numero_chip == 1:
-    #             return 1    
-    #     except Exception:
-    #         print('--------------- Número inválido! revise os dados e tente novamente. ---------------')
-    #         return 1
-    #     try:
-    #         nome = input('Digite o NOME do gato ou 1 para cancelar: ')
-    #         if nome == '1':
-    #             return 1
-    #     except Exception:
-    #         print('--------------- NOME inválido! revise seus dados e tente novamente. ---------------')
-    #         return 1    
-
-    #     try:
-    #         raca = input('Digite a RAÇA do gato ou 1 para cancelar: ')
-    #         if raca == '1':
-    #             return 1
-    #     except Exception:
-    #         print('--------------- RAÇA inválida! revise seus dados e tente novamente. ---------------')
-    #         return 1     
-        
-    #     lista_cadastro = [numero_chip, nome, raca]    
-
-    #     return lista_cadastro
 
     def gato_ja_cadastrado(self, numero_chip):
         sg.popup(f'O gato com número do chip {numero_chip} já está cadastrado!')
