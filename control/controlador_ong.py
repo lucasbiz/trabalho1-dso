@@ -42,9 +42,8 @@ class ControladorOng():
         self.__controlador_adocao.mostra_tela_adocao()
 
     def area_doacao(self):
-        # chamar a tela de doacao para as opções
-        # 
-        print('AREA DOACAO')
+        self.__controlador_doacao.mostra_tela_doacao()
+
 
     def area_animais(self):
         # cadastrar animal

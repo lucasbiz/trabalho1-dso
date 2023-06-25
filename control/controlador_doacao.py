@@ -46,6 +46,7 @@ class ControladorDoacao():
     def listar_doacoes(self):
         if self.__doacoes == []:
             self.__tela_doacao.sem_registro_doacoes()
+            self.mostra_tela_doacao()
         else:
             lista_doacoes = []
             for doacao in self.__doacoes:
@@ -61,7 +62,7 @@ class ControladorDoacao():
 
     def doar(self):
 
-        cpf = self.__tela_doacao.pedir_cpf()
+        cpf = self.__tela_doacao.informe_cpf()
 
         if cpf == 1:
             self.mostra_tela_doacao()
@@ -70,7 +71,7 @@ class ControladorDoacao():
             lista_doadores_cadastrados = self.__controlador_doador.pegar_doadores()
 
             if cpf not in lista_doadores_cadastrados:
-                opcao = self.__tela_doacao.cpf_nao_cadastrado()
+                opcao = self.__tela_doacao.cpf_nao_cadastrado(cpf)
 
                 if opcao == 1:
                     self.cadastra_doador()
@@ -83,13 +84,13 @@ class ControladorDoacao():
                 opcao_escolhida = self.__tela_doacao.gato_ou_cachorro()
 
                 if opcao_escolhida == 1:
-                    self.doar_gato(cpf)
+                    self.doar()
 
                 elif opcao_escolhida == 2:
-                    self.doar_cachorro(cpf)
+                    self.doar_gato(cpf)
 
                 elif opcao_escolhida == 3:
-                    self.mostra_tela_doacao()
+                    self.doar_cachorro(cpf)
 
     def doar_cachorro(self, cpf):
         doacao = self.__controlador_cachorro.cadastra_cachorro()

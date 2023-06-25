@@ -17,19 +17,19 @@ class TelaGato:
 
             if button == 'Confirmar':
 
-                # VALIDACAO CPF
-                if len(values['cpf']) != 11:
-                    sg.popup('CPF INVÁLIDO')
-                    self.__window['cpf'].Update('')
+                # VALIDACAO NUMERO DO CHIP
+                if len(values['numero_chip']) < 1:
+                    sg.popup('NÚMERO DO CHIP INVÁLIDO')
+                    self.__window['numero_chip'].Update('')
                 else:
                     try:
-                        informacoes_cadastro.append(int(values['cpf']))
+                        informacoes_cadastro.append(int(values['numero_chip']))
                     except Exception:
-                        sg.popup('CPF INVÁLIDO')
-                        self.__window['cpf'].Update('')
+                        sg.popup('NÚMERO DO CHIP INVÁLIDO')
+                        self.__window['numero_chip'].Update('')
 
                 # VALIDACAO NOME
-                if len(values['nome']) > 50 or len(values['nome']) == 0:
+                if len(values['nome']) > 50 or len(values['nome']) < 1:
                     sg.popup('NOME INVÁLIDO')
                     self.__window['nome'].Update('')
                 else:
@@ -39,33 +39,50 @@ class TelaGato:
                         sg.popup('NOME INVÁLIDO')
                         self.__window['nome'].Update('')
 
-                # VALIDACAO DATA DE NASCIMENTO
-                if len(values['data_nascimento']) != 10:
-                    sg.popup('DATA INVÁLIDA')
-                    self.__window['data_nascimento'].Update('')
+                # VALIDACAO RACA
+                if len(values['raca']) < 1:
+                    sg.popup('RAÇA INVÁLIDA')
+                    self.__window['raca'].Update('')
                 else:
                     try:
-                        informacoes_cadastro.append(values['data_nascimento'])
+                        informacoes_cadastro.append(values['raca'])
                     except Exception:
-                        sg.popup('DATA INVÁLIDA')
-                        self.__window['data_nascimento'].Update('')
+                        sg.popup('RAÇA INVÁLIDA')
+                        self.__window['raca'].Update('')
 
-                # VALIDACAO ENDEREÇO
-                if len(values['endereco']) == 0:
-                    sg.popup('ENDEREÇO INVÁLIDO')
-                    self.__window['endereco'].Update('')
-                else:
-                    try:
-                        informacoes_cadastro.append(values['endereco'])
-                    except Exception:
-                        sg.popup('ENDEREÇO INVÁLIDO')
-                        self.__window['endereco'].Update('')
+                if values['vacina_raiva'] == True:
+
+                    if len(values['data_raiva']) == 10:
+                        informacoes_cadastro.append([values['vacina_raiva'], values['data_raiva']])
+
+                    else:
+                        sg.popup('Data da vacina da Raiva inválida!')
+                        self.__window['data_raiva'].Update('')
+
+                if values['vacina_leptospirose'] == True:
+
+                    if len(values['data_leptospirose']) == 10:
+                        informacoes_cadastro.append([values['vacina_leptospirose'], values['data_leptospirose']])
+
+                    else:
+                        sg.popup('Data da vacina da Leptospirose inválida!')
+                        self.__window['data_leptospirose'].Update('')
+
+                if values['vacina_hepatite'] == True:
+
+                    if len(values['data_hepatite']) == 10:
+                        informacoes_cadastro.append([values['vacina_hepatite'], values['data_hepatite']])
+
+                    else:
+                        sg.popup('Data da vacina da Hepatite inválida!')
+                        self.__window['data_hepatite'].Update('') 
 
             if button == 'Voltar':
                 cadastro_finalizado = True
                 self.close()
                 return 1
         # FIM VALIDAÇÕES, RETORNA LISTA DE INFORMAÇÕES
+        cadastro_finalizado = True
         self.close()
         return informacoes_cadastro
 
@@ -79,7 +96,12 @@ class TelaGato:
             [sg.Text('Número do Chip: ', size=(25, 1)), sg.InputText(key='numero_chip', size=(20, 1))],
             [sg.Text('Nome: ', size=(25, 1)), sg.InputText(key='nome', size=(20, 1))],
             [sg.Text('Raça', size=(25, 1)), sg.InputText(key='raca', size=(20, 1))],
-            [sg.Text('Histórico de Vacinação', size=(25, 1)), sg.InputText(key='endereco', size=(20, 1))],
+            [sg.Text('Histórico de Vacinação: ', size=(25, 1))],
+            [sg.Text('Selecione as vacinas que o animal já possui\ne digite as datas de aplicação: ', size=(25, 1))],
+            [sg.Text('Vacina', size=(30, 1)), sg.Text('Data (dd/mm/aaaa)', size=(15, 1))],
+            [sg.Checkbox('Raiva', key='vacina_raiva', size=(30, 1)), sg.Text('Data: ', size=(15,1), key='data_raiva'), sg.InputText(size=(15, 1))],
+            [sg.Checkbox('Leptospirose', key='vacina_leptospirose', size=(30, 1)), sg.Text('Data: ', size=(15,1), key='data_leptospirose'), sg.InputText(size=(15, 1))],
+            [sg.Checkbox('Hepatite infecciosa', key='vacina_hepatite', size=(30, 1)), sg.Text('Data: ', size=(15,1), key='data_hepatite'), sg.InputText(size=(15, 1))],
             [sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))]
         ]
 
