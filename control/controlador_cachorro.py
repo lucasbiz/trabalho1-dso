@@ -106,8 +106,6 @@ class ControladorCachorro():
             self.__tela_cachorro.cachorro_nao_encontrado()
             return 1
 
-    def editar_cachorro(self):
-        numero_chip_cachorro = self.__tela_cachorro.informe_chip()
     
 
         
