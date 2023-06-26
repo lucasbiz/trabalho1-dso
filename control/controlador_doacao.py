@@ -3,11 +3,15 @@ from control.controlador_doador import ControladorDoador
 from control.controlador_cachorro import ControladorCachorro
 from control.controlador_gato import ControladorGato
 from model.registro_doacao import RegistroDoacao
+from datetime import date
+from model.gato import Gato
+from model.doador import Doador
+
 
 class ControladorDoacao():
 
     def __init__(self, controlador_ong):
-        self.__doacoes = []
+        self.__doacoes = [RegistroDoacao('22/6/2023', Gato(123, 'Gato Doado', 'Siamês', []), Doador(99999999999, 'Lucas Doador 3', '02/05/00', 'Avenida Beira Mar'), 'Mudança de país')]
         self.__controlador_ong = controlador_ong
         self.__controlador_doador = ControladorDoador(self)
         self.__controlador_cachorro = ControladorCachorro(self)
@@ -73,14 +77,15 @@ class ControladorDoacao():
             if cpf not in lista_doadores_cadastrados:
                 opcao = self.__tela_doacao.cpf_nao_cadastrado(cpf)
 
-                if opcao == 1:
+                if opcao == 2:
                     self.cadastra_doador()
                     self.doar()
 
-                elif opcao == 2:
+                elif opcao == 1:
                     self.mostra_tela_doacao()
     
             elif cpf in lista_doadores_cadastrados:
+                self.__tela_doacao.iniciando_doacao()
                 opcao_escolhida = self.__tela_doacao.gato_ou_cachorro()
 
                 if opcao_escolhida == 1:
@@ -93,58 +98,62 @@ class ControladorDoacao():
                     self.doar_cachorro(cpf)
 
     def doar_cachorro(self, cpf):
-        doacao = self.__controlador_cachorro.cadastra_cachorro()
+        data = date.today()
+        data_doacao = '{}/{}/{}'.format(data.day, data.month, data.year)
 
-        if doacao == 1:
+        novo_cachorro = self.__controlador_cachorro.cadastra_cachorro()
+        cpf_doador = cpf
+
+        if novo_cachorro == 1:
             self.mostra_tela_doacao()
-
-        elif isinstance(doacao, object):
-            dados_finais = self.__tela_doacao.finalizar_doacao()
-            doador = self.__controlador_doador.pegar_doador_cpf(cpf)
-            nova_doacao = RegistroDoacao(dados_finais[0], doacao, doador, dados_finais[1])
-            self.__doacoes.append(nova_doacao)
-            self.__tela_doacao.sucesso_doacao(doacao)
         
+        if novo_cachorro == 2:
+            self.doar_cachorro(cpf_doador)
+
+        elif isinstance(novo_cachorro, object):
+            doador = self.__controlador_doador.pegar_doador_cpf(cpf_doador)
+            motivo = self.__tela_doacao.pedir_motivo()
+            nova_doacao = RegistroDoacao(data_doacao, novo_cachorro, doador, motivo)
+            self.__doacoes.append(nova_doacao)
+            self.__tela_doacao.sucesso_doacao(novo_cachorro)
+            self.mostra_tela_doacao() 
 
     def doar_gato(self, cpf):
-        doacao = self.__controlador_gato.cadastra_gato()
+        data = date.today()
+        data_doacao = '{}/{}/{}'.format(data.day, data.month, data.year)
 
-        if doacao == 1:
+        novo_gato = self.__controlador_gato.cadastra_gato()
+        cpf_doador = cpf
+
+        if novo_gato == 1:
             self.mostra_tela_doacao()
+        
+        if novo_gato == 2:
+            self.doar_gato(cpf_doador)
 
-        elif isinstance(doacao, object):
-            dados_finais = self.__tela_doacao.finalizar_doacao()
-            doador = self.__controlador_doador.pegar_doador_cpf(cpf)
-            nova_doacao = RegistroDoacao(dados_finais[0], doacao, doador, dados_finais[1])
+        elif isinstance(novo_gato, object):
+            doador = self.__controlador_doador.pegar_doador_cpf(cpf_doador)
+            motivo = self.__tela_doacao.pedir_motivo()
+            nova_doacao = RegistroDoacao(data_doacao, novo_gato, doador, motivo)
             self.__doacoes.append(nova_doacao)
-            self.__tela_doacao.sucesso_doacao(doacao)
+            self.__tela_doacao.sucesso_doacao(novo_gato)
+            self.mostra_tela_doacao()
 
     def pegar_doadores(self):
         chaves_doadores = self.__controlador_doador.pegar_doadores()
         return chaves_doadores
 
-    def listar_animais(self):
-        cachorros = self.__controlador_cachorro.listar_cachorros()
-        gatos = self.__controlador_gato.listar_gatos()
-        
-        return [cachorros, gatos]
-
-
-
-    def mostra_doacoes(self):
-        if self.__doacoes == []:
-            self.__tela_doacao.sem_registro_doacoes()
-        else:
-            for doacao in self.__doacoes:
-                dados_doacao = {'data da doação': doacao.data, 'numero do animal doado': doacao.animal.numero_chip, 'nome do doador': doacao.doador.nome}
-                self.__tela_doacao.mostra_doacoes(dados_doacao)
+    def listar_animais(self, opcao):
+        if opcao == 3:
+            self.__controlador_cachorro.listar_cachorros()
+        if opcao == 2:
+            self.__controlador_gato.listar_gatos()
 
     def voltar(self):
         self.__controlador_ong.mostra_tela()
 
-    def mostra_tela_consulta(self):
-        lista_opcoes = {1:self.mostra_doacoes, 2: self.voltar}
+    def verificar_adotantes(self):
+        lista_cpfs_adotantes = self.__controlador_ong.verificar_adotantes()
+        return lista_cpfs_adotantes
 
-        opcao_escolhida = self.__tela_doacao.tela_opcoes_consulta()
-        funcao_escolhida = lista_opcoes[opcao_escolhida]
-        funcao_escolhida()
+

@@ -77,16 +77,19 @@ class TelaGato:
 
                     else:
                         sg.popup('Data da vacina da Hepatite inválida!')
-                        self.__window['data_hepatite'].Update('') 
+                        self.__window['data_hepatite'].Update('')
+                
+                if len(informacoes_cadastro) >= 3:
+                    cadastro_finalizado = True
+                    self.close()
+                    return informacoes_cadastro
 
             if button == 'Voltar':
                 cadastro_finalizado = True
                 self.close()
                 return 1
         # FIM VALIDAÇÕES, RETORNA LISTA DE INFORMAÇÕES
-        cadastro_finalizado = True
-        self.close()
-        return informacoes_cadastro
+
 
     def iniciar_tela(self):
 
@@ -125,8 +128,21 @@ class TelaGato:
     def sem_gatos(self):
         sg.popup('Não existem gatos cadastrados!')
 
-    def mostra_gatos(self, gato):
-        sg.popup(gato)
+    def mostra_gatos(self, gatos):
+
+        sg.theme('SandyBeach')
+        layout = [[sg.Text('Numero do chip', size=(20, 1)),sg.Text('Nome', size=(15, 1))]]
+        for gato in gatos:
+            layout.append([sg.Text(gato.numero_chip, size=(20, 1)),sg.Text(gato.nome, size=(15, 1))])
+        layout.append([sg.Button('Voltar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        button, values = self.__window.Read()
+        if button == 'Voltar':
+            self.close()
+            return 1
 
     def pegar_gato_pelo_numero(self):
 

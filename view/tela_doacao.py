@@ -1,5 +1,4 @@
 from PySimpleGUI import PySimpleGUI as sg
-from datetime import date
 
 class TelaDoacao:
 
@@ -52,7 +51,7 @@ class TelaDoacao:
         sg.theme('SandyBeach')
         layout = [[sg.Text('Data da doação', size=(15, 1)),sg.Text('Nome do Doador', size=(20, 1)), sg.Text('Numero do chip do animal', size=(20, 1)), sg.Text('Nome do animal', size=(15, 1))]]
         for doacao in doacoes:
-            layout.append([sg.Text(doacao.data, size=(15, 1)), sg.Text(doacao.adotante.nome, size=(20, 1)), sg.Text(doacao.animal.numero_chip, size=(20, 1)), sg.Text(doacao.animal.nome, size=(15, 1))])
+            layout.append([sg.Text(doacao.data, size=(15, 1)), sg.Text(doacao.doador.nome, size=(20, 1)), sg.Text(doacao.animal.numero_chip, size=(20, 1)), sg.Text(doacao.animal.nome, size=(15, 1))])
         layout.append([sg.Button('Voltar', size=(20, 1))])
 
         
@@ -119,7 +118,7 @@ class TelaDoacao:
 
         if button == 'Sim':
             self.close()
-            return cpf
+            return 2
 
     def gato_ou_cachorro(self):
  
@@ -147,33 +146,6 @@ class TelaDoacao:
         if button == 'Cachorro':
             self.close()
             return 3 
-    
-    def finalizar_doacao(self): # pegar data automaticamente
-
-        data = date.today()
-        data_doacao = '{}/{}/{}'.format(data.day, data.month, data.year)
-
-        sg.theme('SandyBeach')
-
-        layout = [
-            [sg.Text('Para doar um animalzinho, é necessário assinar o termo de responsabilidade.')],
-            [sg.Text('Deseja assinar o termo?')],
-            [sg.Button('Assinar termo', size=(20,1))],
-            [sg.Button('Não assinar (cancelará a adoção)', size=(20,2))],
-        ]
-
-        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
-
-        button, values = self.__window.Read()
-
-        if button == 'Não assinar (cancelará a adoção)':
-            sg.popup('Adoção Cancelada! Retornando a área de adoção.')
-            self.close()
-            return 1
-
-        if button == 'Assinar termo':
-            self.close()
-            return data_adocao
 
     def sucesso_doacao(self, animal):
         sg.popup(f'{animal.nome} doado com sucesso!')
@@ -183,3 +155,38 @@ class TelaDoacao:
 
     def iniciando_doacao(self):
         sg.popup('Cadastro de Doador encontrado, iniciando doação!')
+
+    def pedir_motivo(self):
+
+        sg.theme('SandyBeach')
+        layout = [[sg.Text(f'Informe o motivo da doação: ', size=(20, 1)), sg.InputText(key='motivo', size=(15,1))]]
+        layout.append([sg.Button('Confirmar', size=(20, 1)), sg.Button('Cancelar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        motivo_correto = False
+
+        while motivo_correto == False:
+
+            button, values = self.__window.Read()
+            if button == 'Confirmar':
+                # VALIDACAO motivo
+                if len(values['motivo']) < 1:
+                    sg.popup('MOTIVO INVÁLIDO')
+                    self.__window['motivo'].Update('')
+                else:
+                    try:
+                        motivo = values['motivo']
+                        motivo_correto = True
+                        self.close()
+                        return motivo
+
+                    except Exception:
+                        sg.popup('MOTIVO INVÁLIDO')
+                        self.__window['motivo'].Update('')
+
+            if button == 'Cancelar':
+                motivo_correto = True
+                self.close()
+                return 1

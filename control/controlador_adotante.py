@@ -119,6 +119,13 @@ class ControladorAdotante():
 
         return cpf_informado
 
+    def verificar_adotantes(self):
+        lista_adotantes = []
+        for adotante_chave in self.__adotantes:
+            adotante = self.__adotantes[adotante_chave]
+            lista_adotantes.append(adotante)
+        return lista_adotantes
+
 
 
 

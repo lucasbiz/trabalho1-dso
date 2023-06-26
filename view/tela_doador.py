@@ -80,7 +80,7 @@ class TelaDoador:
         sg.theme('SandyBeach')
 
         layout = [
-            [sg.Text('Cadastro de novo Adotante', size=(50, 1))],
+            [sg.Text('Cadastro de novo Doador', size=(50, 1))],
             [sg.Text('Informe seus dados para prosseguir:')],
             [sg.Text('CPF: ', size=(25, 1)), sg.InputText(key='cpf', size=(20, 1))],
             [sg.Text('Nome: ', size=(25, 1)), sg.InputText(key='nome', size=(20, 1))],
@@ -114,6 +114,64 @@ class TelaDoador:
             self.close()
             return 1
 
+    def informe_cpf(self):
+
+        sg.theme('SandyBeach')
+        layout = [[sg.Text(f'Informe o CPF do Doador: ', size=(20, 1)), sg.InputText(key='cpf', size=(15,1))]]
+        layout.append([sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))])
+
+        
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        cpf_correto = False
+
+        while cpf_correto == False:
+
+            button, values = self.__window.Read()
+            if button == 'Confirmar':
+                # VALIDACAO CPF
+                if len(values['cpf']) != 11:
+                    sg.popup('CPF INVÁLIDO')
+                    self.__window['cpf'].Update('')
+                else:
+                    try:
+                        cpf = int(values['cpf'])
+                        cpf_correto = True
+                        self.close()
+                        return cpf
+
+                    except Exception:
+                        sg.popup('CPF INVÁLIDO')
+                        self.__window['cpf'].Update('')
+                
+
+            if button == 'Voltar':
+                cpf_correto = True
+                self.close()
+                return 1
+
+    def tela_edicao_doador(self, doador):
+
+        sg.theme('SandyBeach')
+
+        layout = [
+            [sg.Text('Edição de doador', size=(50, 1))],
+            [sg.Text('Informe os novos dados para prosseguir:')],
+            [sg.Text('CPF: ', size=(25, 1)), sg.InputText(doador.cpf ,key='cpf', size=(20, 1))],
+            [sg.Text('Nome: ', size=(25, 1)), sg.InputText(doador.nome ,key='nome', size=(20, 1))],
+            [sg.Text('Data de Nascimento(dd/mm/aaaa)', size=(25, 1)), sg.InputText(doador.data_nascimento, key='data_nascimento', size=(20, 1))],
+            [sg.Text('Endereço: ', size=(25, 1)), sg.InputText(doador.endereco, key='endereco', size=(20, 1))],
+            [sg.Button('Confirmar', size=(20, 1)), sg.Button('Voltar', size=(20, 1))]
+        ]
+
+        self.__window = sg.Window('Ong das Patinhas').Layout(layout)
+
+        informacoes_cadastro_edicao = self.validacoes_cadastro()
+        return informacoes_cadastro_edicao
+
+    def mostra_sucesso_edicao(self, cpf):
+        sg.popup(f'Doador com cpf {cpf} editado com sucesso!')
+
     def sem_doadores(self):
         sg.popup('Não existem doadores cadastrados!')
 
@@ -124,5 +182,8 @@ class TelaDoador:
         sg.popup(f'CPF {cpf} não encontrado!')
 
     def mostra_sucesso_edicao(self, cpf):
-        sg.popup(f'Adotante com cpf {cpf} editado com sucesso!')
+        sg.popup(f'Doador com cpf {cpf} editado com sucesso!')
+
+    def doador_removido_sucesso(self, cpf):
+        sg.popup(f'Doador com CPF {cpf} foi removido com sucesso!')
 

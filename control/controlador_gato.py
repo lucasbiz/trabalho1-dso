@@ -34,10 +34,7 @@ class ControladorGato():
 
             elif opcao_escolhida[0] in self.__gatos:
                 self.__tela_gato.gato_ja_cadastrado(opcao_escolhida[0])
-
-        
-    def listar_gatos(self):
-        pass
+                return 2
 
     def finalizar_adocao(self, identificador):
         self.__gatos.pop(identificador)
@@ -66,12 +63,16 @@ class ControladorGato():
 
         if self.__gatos == {}:
             self.__tela_gato.sem_gatos()
+            return 1
 
         else:
+            lista_gatos = []
             for gato_chave in self.__gatos:
                 gato = self.__gatos[gato_chave]
-                gato_infos = {'numero_chip': gato.numero_chip, 'nome': gato.nome, 'raca': gato.raca, 'tamanho': gato.tamanho}
-                self.__tela_gato.mostra_gatos(gato_infos)
+                lista_gatos.append(gato)
+            opcao_escolhida = self.__tela_gato.mostra_gatos(lista_gatos)
+            if opcao_escolhida == 1:
+                return 1
 
     def pegar_gato_pelo_numero(self):
 

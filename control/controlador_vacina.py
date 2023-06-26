@@ -5,6 +5,9 @@ class ControladorVacina():
 
     def __init__(self):
         self.__tela_vacina = TelaVacina()
+
+    def cadastra_vacina(self, nome, data):
+        return Vacina(nome, data)
     
     def mostra_tela_vacinacao(self):
         dados_vacina = self.__tela_vacina.mostra_tela_vacinacao()

@@ -102,7 +102,7 @@ class ControladorAdocao():
         if cachorro == 1:
             self.mostra_tela_adocao()
 
-        if int(cachorro.tamanho) == 3:
+        if cachorro.tamanho == 'Grande':
             if adotante.tipo_habitacao == 'Apartamento pequeno':
                 self.__tela_adocao.erro_tamanho_apartamento()
                 self.mostra_tela_adocao()
@@ -172,6 +172,10 @@ class ControladorAdocao():
     def verificar_doadores(self):
         cpfs_doadores = self.__controlador_ong.pegar_doadores()
         return cpfs_doadores
+
+    def verificar_adotantes(self):
+        cpfs_adotantes = self.__controlador_adotante.verificar_adotantes()
+        return cpfs_adotantes
 
     def mostra_tela_consulta(self):
         lista_opcoes = {1:self.mostra_adocoes, 2: self.voltar}

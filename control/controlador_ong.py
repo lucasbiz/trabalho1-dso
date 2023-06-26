@@ -12,31 +12,16 @@ class ControladorOng():
 
     def inicia_sistema(self):
         self.mostra_tela()
-
-    # def consultar_doacoes(self):
-    #     self.__controlador_doacao.mostra_tela_consulta()
-
-    # def consultar_adocoes(self):
-    #     self.__controlador_adocao.mostra_tela_consulta()
-
-    # def doar(self):
-    #     self.__controlador_doacao.mostra_tela_doacao()
-
-    # def adotar(self):
-    #     self.__controlador_adocao.mostra_tela_adocao()
-    
-    # def listar_doadores(self):
-    #     self.__controlador_doacao.listar_doadores()
     
     def pegar_doadores(self):
         chaves_doadores = self.__controlador_doacao.pegar_doadores()
         return chaves_doadores
 
-    # def listar_adotantes(self):
-    #     self.__controlador_adocao.listar_adotantes()
+    def listar_adotantes(self):
+        self.__controlador_adocao.listar_adotantes()
 
-    # def listar_animais(self):
-    #     self.__controlador_doacao.listar_animais()
+    def verificar_adotantes(self):
+        return self.__controlador_adocao.verificar_adotantes()
 
     def area_adocao(self):
         self.__controlador_adocao.mostra_tela_adocao()
@@ -45,17 +30,24 @@ class ControladorOng():
         self.__controlador_doacao.mostra_tela_doacao()
 
 
-    def area_animais(self):
-        # cadastrar animal
-        # editar um animal
-        # excluir um animal
-        print('AREA ANIMAIS')
+    def listar_animais(self):
+        opcao_gato_ou_cachorro = self.__tela_ong.gato_ou_cachorro()
+        if opcao_gato_ou_cachorro == 1:
+            self.mostra_tela()
+
+        if opcao_gato_ou_cachorro == 2:
+            self.__controlador_doacao.listar_animais(2)
+            self.listar_animais()
+
+        if opcao_gato_ou_cachorro == 3:
+            self.__controlador_doacao.listar_animais(3)
+            self.listar_animais()
 
     def finalizar(self):
         exit(0)
 
     def mostra_tela(self):
-        lista_opcoes = {1: self.area_adocao, 2: self.area_doacao, 3: self.area_animais, 0: self.finalizar}
+        lista_opcoes = {1: self.area_adocao, 2: self.area_doacao, 3: self.listar_animais, 0: self.finalizar}
 
         opcao_escolhida = self.__tela_ong.tela_opcoes()
         funcao_escolhida = lista_opcoes[opcao_escolhida]

@@ -8,7 +8,7 @@ from model.vacina import Vacina
 class ControladorCachorro():
 
     def __init__(self, controlador_doacao):
-        self.__cachorros = {111: Cachorro(111, 'Cachorro médio', 'Sem raça', [Vacina('Raiva', '12/5/2022')], 2), 222: Cachorro(222, 'Cachorro grande', 'Sem raça', [], 3)}
+        self.__cachorros = {111: Cachorro(111, 'Cachorro médio', 'Sem raça', [Vacina('Raiva', '12/5/2022')], 'Médio'), 222: Cachorro(222, 'Cachorro grande', 'Sem raça', [], 'Grande')}
         self.__controlador_doacao = controlador_doacao
         self.__controlador_vacina = ControladorVacina()
         self.__tela_cachorro = TelaCachorro()
@@ -20,16 +20,22 @@ class ControladorCachorro():
             return 1
 
         elif isinstance(opcao_escolhida, list):
+            historico_vacinacao = []
+
+            for item in opcao_escolhida:
+                if isinstance(item, list):
+                    historico_vacinacao.append(self.__controlador_vacina.cadastra_vacina(item[0], item[1]))
 
             if opcao_escolhida[0] not in self.__cachorros:
-                vacinas = self.vacinacao()
-                novo_cachorro = Cachorro(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], opcao_escolhida[3], vacinas)
+                novo_cachorro = Cachorro(opcao_escolhida[0], opcao_escolhida[1], opcao_escolhida[2], historico_vacinacao, opcao_escolhida[3])
                 self.__cachorros[opcao_escolhida[0]] = novo_cachorro
                 self.__tela_cachorro.sucesso_cadastro_cachorro()
+
                 return novo_cachorro
 
             elif opcao_escolhida[0] in self.__cachorros:
                 self.__tela_cachorro.cachorro_ja_cadastrado(opcao_escolhida[0])
+                return 2
 
     def vacinacao(self):
         lista_vacinas = []
@@ -54,14 +60,20 @@ class ControladorCachorro():
             return 1
 
     def listar_cachorros(self):
+
         if self.__cachorros == {}:
             self.__tela_cachorro.sem_cachorros()
+            return 1
 
         else:
+            lista_cachorros = []
             for cachorro_chave in self.__cachorros:
                 cachorro = self.__cachorros[cachorro_chave]
-                cachorro_infos = {'numero_chip': cachorro.numero_chip, 'nome': cachorro.nome, 'raca': cachorro.raca, 'tamanho': cachorro.tamanho}
-                self.__tela_cachorro.mostra_cachorros(cachorro_infos)
+                lista_cachorros.append(cachorro)
+            opcao_escolhida = self.__tela_cachorro.mostra_cachorros(lista_cachorros)
+            if opcao_escolhida == 1:
+                return 1
+
 
     def finalizar_adocao(self, identificador):
         self.__cachorros.pop(identificador)
@@ -93,6 +105,9 @@ class ControladorCachorro():
         elif numero_chip not in self.__cachorros:
             self.__tela_cachorro.cachorro_nao_encontrado()
             return 1
+
+    def editar_cachorro(self):
+        numero_chip_cachorro = self.__tela_cachorro.informe_chip()
     
 
         
